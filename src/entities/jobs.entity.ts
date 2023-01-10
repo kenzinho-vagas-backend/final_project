@@ -32,7 +32,7 @@ class Job {
     userJob: UserJob[]
 
     @OneToMany(() => TechJob, (techJob) => techJob.job)
-    techsJobs: TechJob
+    techsJobs: TechJob[]
 }
 
 export {Job}
