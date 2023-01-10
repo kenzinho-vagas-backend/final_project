@@ -4,8 +4,14 @@ import { createCompanyService } from '../../services/companies/createCompany.ser
 
 const createCompanyController = async (req: Request, res: Response) => {
     const companyData: ICompanyRequest = req.body
+    console.log(companyData)
     const newCompany =  await createCompanyService(companyData)
     return res.status(201).json(newCompany) 
-} 
+}
+
+const listAllCompanies = async (req: Request, res: Response) => {
+    const companies = await
+    return res.status(201).json(companies)
+}
 
 export { createCompanyController }

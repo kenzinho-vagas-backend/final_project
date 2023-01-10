@@ -3,9 +3,9 @@ import { createCompanyController } from '../controllers/companies/companies.cont
 
 const companiesRoutes = Router()
 
-companiesRoutes.post('/companies', createCompanyController)
-companiesRoutes.get('/companies')
-companiesRoutes.patch('/companies')
-companiesRoutes.delete('/companies')
+companiesRoutes.post('',/* Colocar middleware de admin*/ createCompanyController)
+companiesRoutes.get('')
+companiesRoutes.patch('')
+companiesRoutes.delete('')
 
-export { companiesRoutes }
+export default companiesRoutes
