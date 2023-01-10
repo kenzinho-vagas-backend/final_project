@@ -1,3 +1,3 @@
 export interface ICompanyRequest {
-    name: string
+    companyName: string
 }
