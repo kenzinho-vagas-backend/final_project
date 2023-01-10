@@ -9,9 +9,9 @@ const createCompanyController = async (req: Request, res: Response) => {
     return res.status(201).json(newCompany) 
 }
 
-const listAllCompanies = async (req: Request, res: Response) => {
+const listAllCompaniesController = async (req: Request, res: Response) => {
     const companies = await
     return res.status(201).json(companies)
 }
 
-export { createCompanyController }
+export { createCompanyController, listAllCompaniesController }
