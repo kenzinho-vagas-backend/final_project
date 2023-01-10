@@ -1,11 +1,5 @@
-import { getCandidatesJobService } from './../../services/jobs/getCandidatesJob.service';
-import { getTechnologiesJobsService } from './../../services/jobs/getTechnologiesJobs.service';
-import { getCompanyJobsService } from './../../services/jobs/getCompanyJobs.service';
-import { getAllJobsService } from './../../services/jobs/getAllJobs.service';
-import { updateJobService } from './../../services/jobs/updateJob.service';
-import { createJobService } from "../../services/jobs/createJob.service";
+import { getCandidatesJobService, getTechnologiesJobsService, getCompanyJobsService, getAllJobsService, updateJobService,createJobService, deleteJobService } from './../../services/'
 import { Request, Response } from "express";
-import { deleteJobService } from '../../services/jobs/deleteJob.service';
 
 export const createJobController = async (req: Request, res: Response) => {
   const data = req.body;

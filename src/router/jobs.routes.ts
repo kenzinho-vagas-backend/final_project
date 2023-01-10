@@ -1,8 +1,7 @@
 import { createJobSerializer } from './../schemas/job.serializer';
-import { updateJobController, getAllJobsController, deleteJobController, getCompanyJobsController, getTechnologiesJobsController, getCandidatesJobController } from './../controllers/jobs/job.controller';
-import { createJobController } from "../controllers/jobs/job.controller";
+import { updateJobController, getAllJobsController, deleteJobController, getCompanyJobsController, getTechnologiesJobsController, getCandidatesJobController, createJobController } from './../controllers/';
 import { Router } from "express";
-import { ensurePatchDataIsValidMiddleware } from '../middlewares/validateSchema.middleware';
+import { ensurePatchDataIsValidMiddleware } from '../middlewares/';
 
 const jobRoutes = Router();
 
