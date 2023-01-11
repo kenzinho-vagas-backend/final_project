@@ -3,6 +3,7 @@ import { Company } from "../../entities/companies.entity"
 import { Job } from "../../entities/jobs.entity"
 import AppError from "../../errors/AppError"
 
+
 export const createJobService = async (data) => {
     const jobRepository = AppDataSource.getRepository(Job)
     const companyRepository = AppDataSource.getRepository(Company)
