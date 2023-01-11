@@ -4,7 +4,7 @@ import { updateJobController, getAllJobsController, deleteJobController, getComp
 
 import { Router } from "express"
 import { ensuranceIsOwnerCompany, ensuranceUserIsAdm, ensurePatchDataIsValidMiddleware } from '../../middlewares'
-import ensureAuthMiddleware from '../../middlewares/ensureAuth.middleware'
+import {ensureAuthMiddleware} from '../../middlewares/ensureAuth.middleware'
 import {ensureJobExistsMiddleware} from '../../middlewares/ensureJobExists.middleware'
 
 const jobRoutes = Router()
