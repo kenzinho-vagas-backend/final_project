@@ -4,7 +4,7 @@ import { IUserRequest } from '../interfaces/user.interface'
 import AppDataSource from '../data-source'
 import AppError from '../errors/AppError'
 
-export const ensureUserExists = async (req: Request, res: Response, next: NextFunction) => {
+export const ensureEmailExists = async (req: Request, res: Response, next: NextFunction) => {
     const userData = req.body
     const usersRepository = AppDataSource.getRepository(User)
 
@@ -14,7 +14,7 @@ export const ensureUserExists = async (req: Request, res: Response, next: NextFu
 
     if (user) {
         if (userData.name) {
-            throw new AppError('User already exists', 400)
+            throw new AppError('User already exists', 409)
         }
 
         res.locals.user = user
