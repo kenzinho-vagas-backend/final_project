@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { createCompanyController } from '../controllers/companies/companies.controllers';
+import { createCompanyController, listAllCompaniesController } from '../controllers/companies/companies.controllers';
 
 const companiesRoutes = Router()
 
 companiesRoutes.post('',/* Colocar middleware de admin*/ createCompanyController)
-companiesRoutes.get('')
+companiesRoutes.get('', listAllCompaniesController)
 companiesRoutes.patch('')
 companiesRoutes.delete('')
 

@@ -10,3 +10,5 @@ const listAllCompaniesService = async (): Promise<Company[]> => {
 
     return companies
 }
+
+export { listAllCompaniesService }
