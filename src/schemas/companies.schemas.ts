@@ -9,4 +9,6 @@ const companyWithIdSerializer: SchemaOf<ICompanyRequest> = yup.object().shape({
     job: yup.array()
 })
 
-export { companyWithIdSerializer }
+const allCompaniesResponseSerializer: SchemaOf<ICompanyRequest[]> = yup.array(companyWithIdSerializer)
+
+export { companyWithIdSerializer, allCompaniesResponseSerializer }
