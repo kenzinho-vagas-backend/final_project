@@ -3,14 +3,14 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm"
-import { Job } from "./jobs.entity"
-import { User } from "./users.entity"
+  PrimaryGeneratedColumn
+} from 'typeorm'
+import { Job } from './jobs.entity'
+import { User } from './users.entity'
 
-@Entity("companies")
+@Entity('companies')
 class Company {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
