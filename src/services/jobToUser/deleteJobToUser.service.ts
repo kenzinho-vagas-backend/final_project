@@ -1,7 +1,7 @@
 import AppDataSource from "../../data-source"
 import { UserJob } from "../../entities/usersJobs.entity"
 
-const deleteJobToUserService = async (jobId: string, userId: string) => {
+const deleteJobToUserService = async (jobId: string, userId: string): Promise<object> => {
 
     await AppDataSource.createQueryBuilder()
     .delete()
