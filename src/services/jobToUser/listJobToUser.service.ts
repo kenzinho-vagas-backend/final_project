@@ -2,14 +2,13 @@ import AppDataSource from "../../data-source"
 import { Job } from "../../entities/jobs.entity"
 import { UserJob } from "../../entities/usersJobs.entity"
 
-const listJobToUserService = async () => {
+const listJobToUserService = async (userId: string) => {
 
-    const id = "1"
     const jobToUserRepo = AppDataSource.getRepository(UserJob)
 
     const searchJobs = await jobToUserRepo.findOne({
         where:{
-            id: id
+            id: userId
         },
         relations: {
             job: true
