@@ -1,6 +1,6 @@
-import AppDataSource from "../../data-source"
-import { Technology } from "../../entities/technologies.entity"
-import AppError from "../../errors/AppError"
+import AppDataSource from '../../data-source'
+import { Technology } from '../../entities/technologies.entity'
+import AppError from '../../errors/AppError'
 
 export const getTechnologiesJobsService = async (id) => {
     const technologyRepository = AppDataSource.getRepository(Technology)

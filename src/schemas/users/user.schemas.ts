@@ -1,8 +1,8 @@
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
-import { IUserRequest } from '../interfaces/user.interface'
+import { IUserRequest } from '../../interfaces/user.interface'
 
-const createUserSchema: SchemaOf<IUserRequest> = yup.object().shape({
+export const createUserSerializer: SchemaOf<IUserRequest> = yup.object().shape({
     name: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().required(),
@@ -12,5 +12,3 @@ const createUserSchema: SchemaOf<IUserRequest> = yup.object().shape({
     specialty: yup.string().required(),
     jobLevel: yup.string().required()
 })
-
-export { createUserSchema }

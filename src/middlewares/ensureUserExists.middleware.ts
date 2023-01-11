@@ -4,7 +4,7 @@ import { IUserRequest } from '../interfaces/user.interface'
 import AppDataSource from '../data-source'
 import AppError from '../errors/AppError'
 
-const ensureUserExists = async (req: Request, res: Response, next: NextFunction) => {
+export const ensureUserExists = async (req: Request, res: Response, next: NextFunction) => {
     const userData: IUserRequest = req.body
 
     const usersRepository = AppDataSource.getRepository(User)
@@ -23,5 +23,3 @@ const ensureUserExists = async (req: Request, res: Response, next: NextFunction)
     }
     return next()
 }
-
-export default ensureUserExists

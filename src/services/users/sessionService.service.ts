@@ -1,13 +1,13 @@
 import { compare } from 'bcryptjs'
 import { User } from '../../entities/users.entity'
 import { ISessionRequest } from '../../interfaces/session.interface'
-import { sessionSchema } from '../../schemas/session.schemas'
+import { sessionSerializer } from '../../schemas'
 import AppError from '../../errors/AppError'
 import jwt from 'jsonwebtoken'
 
-const sessionService = async (userData: ISessionRequest, userFromDatabase: User) => {
+export const sessionService = async (userData: ISessionRequest, userFromDatabase: User) => {
     try {
-        const userDataValidated = await sessionSchema.validate(userData, {
+        const userDataValidated = await sessionSerializer.validate(userData, {
             abortEarly: false,
             stripUnknown: true
         })
@@ -35,5 +35,3 @@ const sessionService = async (userData: ISessionRequest, userFromDatabase: User)
         throw new AppError('User invalid', 403)
     }
 }
-
-export default sessionService

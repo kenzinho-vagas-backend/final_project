@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { createUserController } from '../../controllers/createUserController.controllers'
-import ensureUserExists from '../../middlewares/ensureUserExists.middleware'
+import { createUserController } from '../../controllers'
+import { ensureUserExists } from '../../middlewares'
 
 const usersRoutes = Router()
 

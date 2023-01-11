@@ -2,11 +2,11 @@ import AppDataSource from '../../data-source'
 import { User } from '../../entities/users.entity'
 import AppError from '../../errors/AppError'
 import { IUserRequest } from '../../interfaces/user.interface'
-import { createUserSchema } from '../../schemas/createUser.schemas'
+import { createUserSerializer } from '../../schemas'
 
-const createUserService = async (userData: IUserRequest): Promise<User> => {
+export const createUserService = async (userData: IUserRequest): Promise<User> => {
     try {
-        const userDataValidated = await createUserSchema.validate(userData, {
+        const userDataValidated = await createUserSerializer.validate(userData, {
             stripUnknown: true,
             abortEarly: false
         })
@@ -21,5 +21,3 @@ const createUserService = async (userData: IUserRequest): Promise<User> => {
         throw new AppError(error, 400)
     }
 }
-
-export default createUserService

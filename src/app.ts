@@ -2,10 +2,10 @@ import 'reflect-metadata'
 import 'express-async-errors'
 import express from 'express'
 import handleError from './errors/handleError'
-import companiesRoutes from './router/companies.routes'
+import companiesRoutes from './router/companies/companies.routes'
 import { jobRoutes } from './router'
 import usersRoutes from './router/users/users.routes'
-import sessionRoutes from './router/users/session.routes'
+import sessionRoutes from './router/session/session.routes'
 
 const app = express()
 app.use(express.json())
