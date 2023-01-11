@@ -19,9 +19,9 @@ export const listJobToUserController = async (req: Request, res: Response) => {
 }
 
 export const deleteJobToUserController = async (req: Request, res: Response) => {
-    //criar variavel com o id do usuario/ esperar middleware de verificação de token
+    const userId: string = req.user.id
     const jobId: string = req.params.id
-    const response = await deleteJobToUserService(jobId)
+    const response = await deleteJobToUserService(jobId, userId)
 
     return res.status(400).json(response)
 }
