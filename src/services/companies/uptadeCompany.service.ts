@@ -5,7 +5,7 @@ import { ICompanyRequest } from '../../interfaces/company.interface';
 
 const uptadeCompanyService = async (companyData: ICompanyRequest, companyId: string): Promise<Company> => {
     const companyRepository = AppDataSource.getRepository(Company)
-    const company = companyRepository.findOneBy({ id: companyId})
+    const company = await companyRepository.findOneBy({ id: companyId})
 
     if(!company) {
         throw new AppError("Company not found", 404)
