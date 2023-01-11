@@ -5,8 +5,7 @@ import AppDataSource from '../data-source'
 import AppError from '../errors/AppError'
 
 export const ensureUserExists = async (req: Request, res: Response, next: NextFunction) => {
-    const userData: IUserRequest = req.body
-
+   
     const usersRepository = AppDataSource.getRepository(User)
 
     const user = await usersRepository.findOneBy({
