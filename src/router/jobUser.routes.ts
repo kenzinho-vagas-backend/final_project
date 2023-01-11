@@ -7,7 +7,7 @@ import { deleteJobToUserController } from "../controllers/jobToUser/jobToUser.co
 const jobUserRoutes = Router()
 
 jobUserRoutes.post('', createJobToUserController)
-jobUserRoutes.get('', listJobToUserController)
-jobUserRoutes.get('/:id', deleteJobToUserController)
+jobUserRoutes.get('', /*colocar middleware de verificação de token*/ listJobToUserController)
+jobUserRoutes.get('/:id',/*colocar middleware de verificação de token*/ deleteJobToUserController)
 
 export default jobUserRoutes
