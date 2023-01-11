@@ -1,3 +1,4 @@
-import { ensurePatchDataIsValidMiddleware } from './validateSchema.middleware';
+import { ensurePatchDataIsValidMiddleware } from './validateSchema.middleware'
+import { ensureUserExists } from './ensureUserExists.middleware'
 
-export { ensurePatchDataIsValidMiddleware }
+export { ensurePatchDataIsValidMiddleware, ensureUserExists }

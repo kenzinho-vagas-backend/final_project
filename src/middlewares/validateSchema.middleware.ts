@@ -1,5 +1,5 @@
-import { AnySchema } from "yup";
-import { Response, Request, NextFunction } from "express";
+import { AnySchema } from 'yup'
+import { Response, Request, NextFunction } from 'express'
 
 export const ensurePatchDataIsValidMiddleware = (schema: AnySchema) => async (req: Request, res: Response, next: NextFunction) => {
     try {

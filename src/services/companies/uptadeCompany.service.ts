@@ -1,7 +1,7 @@
-import AppDataSource from '../../data-source';
-import { Company } from '../../entities/companies.entity';
-import AppError from '../../errors/AppError';
-import { ICompanyRequest } from '../../interfaces/company.interface';
+import AppDataSource from '../../data-source'
+import { Company } from '../../entities/companies.entity'
+import AppError from '../../errors/AppError'
+import { ICompanyRequest } from '../../interfaces/company.interface'
 
 const uptadeCompanyService = async (companyData: ICompanyRequest, companyId: string): Promise<Company> => {
     const companyRepository = AppDataSource.getRepository(Company)

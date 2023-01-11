@@ -1,6 +1,6 @@
-import AppDataSource from '../../data-source';
-import { Company } from '../../entities/companies.entity';
-import { allCompaniesResponseSerializer } from '../../schemas/companies.schemas';
+import AppDataSource from '../../data-source'
+import { Company } from '../../entities/companies.entity'
+import { allCompaniesResponseSerializer } from '../../schemas/companies/companies.schemas'
 
 const listAllCompaniesService = async (): Promise<Company[]> => {
     const companyRepository = AppDataSource.getRepository(Company)
