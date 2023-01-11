@@ -9,12 +9,14 @@ import jobUserRoutes from './router/jobUser.routes'
 
 import usersRoutes from './router/users/users.routes'
 import sessionRoutes from './router/session/session.routes'
+import techsRouter from './router/techs/techs.router'
 
 const app = express()
 app.use(express.json())
 
 app.use('/jobs', jobRoutes)
 app.use('/companies', companiesRoutes)
+app.use('/techs', techsRouter)
 app.use('/jobUser', jobUserRoutes)
 app.use('/users', usersRoutes)
 app.use('/session', sessionRoutes)
