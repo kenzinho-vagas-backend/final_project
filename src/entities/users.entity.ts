@@ -34,7 +34,7 @@ class User {
     specialty: string
 
     @Column()
-    job_level: string
+    jobLevel: string
 
     @CreateDateColumn()
     createdAt: Date
@@ -63,4 +63,4 @@ class User {
     userJob: UserJob[]
 }
 
-export {User}
+export { User }

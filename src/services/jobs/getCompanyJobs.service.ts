@@ -1,6 +1,6 @@
-import AppDataSource from "../../data-source"
-import { Company } from "../../entities/companies.entity"
-import AppError from "../../errors/AppError"
+import AppDataSource from '../../data-source'
+import { Company } from '../../entities/companies.entity'
+import AppError from '../../errors/AppError'
 
 export const getCompanyJobsService = async (id) => {
     const companyRepository = AppDataSource.getRepository(Company)
@@ -15,6 +15,5 @@ export const getCompanyJobsService = async (id) => {
         .innerJoinAndSelect('companies.job', 'jobs')
         .where('companies.id = :id_company', { id_company: id })
         .getOne()
-    console.log("ID", id)
     return jobs
 }
