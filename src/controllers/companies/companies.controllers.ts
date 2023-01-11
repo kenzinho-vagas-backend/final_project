@@ -12,7 +12,14 @@ const createCompanyController = async (req: Request, res: Response) => {
 
 const listAllCompaniesController = async (req: Request, res: Response) => {
     const companies = await listAllCompaniesService()
-    return res.status(201).json(companies)
+    return res.status(200).json(companies)
+}
+
+const uptadeCompanyController = async (req: Request, res: Response) => {
+    const companyData = req.body
+    const companyId = req.params.id
+    const companyUpdated = await
+    return res.status(200).json(companyUpdated)
 }
 
 export { createCompanyController, listAllCompaniesController }
