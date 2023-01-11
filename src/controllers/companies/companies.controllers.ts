@@ -16,10 +16,14 @@ const listAllCompaniesController = async (req: Request, res: Response) => {
 }
 
 const uptadeCompanyController = async (req: Request, res: Response) => {
-    const companyData = req.body
+    const companyData: ICompanyRequest = req.body
     const companyId: string = req.params.id
     const companyUpdated = await uptadeCompanyService(companyData, companyId)
     return res.status(200).json(companyUpdated)
+}
+
+const deleteCompanyController = async (req: Request, res: Response) => {
+    
 }
 
 export { createCompanyController, listAllCompaniesController, uptadeCompanyController }
