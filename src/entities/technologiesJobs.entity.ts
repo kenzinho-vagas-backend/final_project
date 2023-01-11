@@ -1,6 +1,6 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Job } from "./jobs.entity";
-import { Technology } from "./technologies.entity";
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Job } from "./jobs.entity"
+import { Technology } from "./technologies.entity"
 
 
 @Entity('techsJobs')

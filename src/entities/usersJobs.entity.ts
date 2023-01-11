@@ -1,6 +1,6 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Job } from "./jobs.entity";
-import { User } from "./users.entity";
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Job } from "./jobs.entity"
+import { User } from "./users.entity"
 
 @Entity('usersJobs')
 class UserJob {

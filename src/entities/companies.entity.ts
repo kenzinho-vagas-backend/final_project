@@ -4,23 +4,23 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { Job } from "./jobs.entity";
-import { User } from "./users.entity";
+} from "typeorm"
+import { Job } from "./jobs.entity"
+import { User } from "./users.entity"
 
 @Entity("companies")
 class Company {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  id: string
 
   @Column()
-  companyName: string;
+  companyName: string
 
   @ManyToOne(() => User, (user) => user.companies)
-  user: User;
+  user: User
 
   @OneToMany(() => Job, (job) => job.companies)
-  job: Job[];
+  job: Job[]
 }
 
-export { Company };
+export { Company }
