@@ -1,12 +1,12 @@
 import { getCandidatesJobService, getTechnologiesJobsService, getCompanyJobsService, getAllJobsService, updateJobService,createJobService, deleteJobService } from './../../services/'
-import { Request, Response } from "express";
+import { Request, Response } from 'express'
 
 export const createJobController = async (req: Request, res: Response) => {
-  const data = req.body;
-  const response = await createJobService(data);
+  const data = req.body
+  const response = await createJobService(data)
 
-  return res.status(201).json(response);
-};
+  return res.status(201).json(response)
+}
 
 export const getAllJobsController = async (req: Request, res: Response) => {
     const jobs = await getAllJobsService()
