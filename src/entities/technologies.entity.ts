@@ -15,4 +15,4 @@ class Technology {
     techsJobs: TechJob
 }
 
-export {Technology}
+export { Technology }

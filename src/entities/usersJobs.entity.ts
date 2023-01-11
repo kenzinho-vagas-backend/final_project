@@ -15,4 +15,4 @@ class UserJob {
     job: Job
 }
 
-export {UserJob}
+export { UserJob }

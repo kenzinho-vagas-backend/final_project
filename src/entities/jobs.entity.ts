@@ -35,4 +35,4 @@ class Job {
     techsJobs: TechJob
 }
 
-export {Job}
+export { Job }

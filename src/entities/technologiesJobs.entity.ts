@@ -16,4 +16,4 @@ class TechJob {
     job: Job
 }
 
-export {TechJob}
+export { TechJob }
