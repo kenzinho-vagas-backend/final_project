@@ -23,5 +23,5 @@ export const deleteJobToUserController = async (req: Request, res: Response) => 
     const jobId: string = req.params.id
     const response = await deleteJobToUserService(jobId, userId)
 
-    return res.status(400).json(response)
+    return res.status(204).json(response)
 }
