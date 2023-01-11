@@ -4,5 +4,5 @@ import { createUserController } from './users/createUserController.controllers'
 
 import {createJobToUserController} from './jobToUser/jobToUser.controller'
 
-export { updateJobController, getAllJobsController, deleteJobController, getCompanyJobsController, getTechnologiesJobsController, getCandidatesJobController, createJobController, sessionController, createUserController }
+export { updateJobController, getAllJobsController, deleteJobController, getCompanyJobsController, getTechnologiesJobsController, getCandidatesJobController, createJobController, sessionController, createUserController, createJobToUserController }
 
