@@ -7,7 +7,8 @@ import { uptadeCompanyService } from '../../services/companies/uptadeCompany.ser
 
 const createCompanyController = async (req: Request, res: Response) => {
     const companyData: ICompanyRequest = req.body
-    const newCompany =  await createCompanyService(companyData)
+    const userId = req.user.id
+    const newCompany =  await createCompanyService(companyData, userId)
     return res.status(201).json(newCompany) 
 }
 

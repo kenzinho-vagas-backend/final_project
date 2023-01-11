@@ -4,11 +4,12 @@ import { createJobToUserController } from "../controllers/jobToUser/jobToUser.co
 import { listJobToUserController } from "../controllers/jobToUser/jobToUser.controller";
 import { deleteJobToUserController } from "../controllers/jobToUser/jobToUser.controller";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
+import {ensureJobExistsMiddleware} from '../middlewares/ensureJobExists.middleware'
 
 const jobUserRoutes = Router()
 
-jobUserRoutes.post('', createJobToUserController)
+jobUserRoutes.post('', ensureAuthMiddleware,createJobToUserController)
 jobUserRoutes.get('', ensureAuthMiddleware, listJobToUserController)
-jobUserRoutes.get('/:id', ensureAuthMiddleware, deleteJobToUserController)
+jobUserRoutes.delete('/:id', ensureAuthMiddleware,ensureJobExistsMiddleware ,deleteJobToUserController)
 
 export default jobUserRoutes

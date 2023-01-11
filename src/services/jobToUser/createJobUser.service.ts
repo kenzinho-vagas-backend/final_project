@@ -2,6 +2,7 @@ import AppDataSource from "../../data-source";
 import { Job } from "../../entities/jobs.entity";
 import { User } from "../../entities/users.entity";
 import { UserJob } from "../../entities/usersJobs.entity";
+import AppError from "../../errors/AppError";
 import { IUserJobRequest } from "../../interfaces/job.interface";
 
 
@@ -18,6 +19,14 @@ const createJobToUserService = async (jobUser: IUserJobRequest | any): Promise<o
     const job = await jobRepo.findOneBy({
         id: jobUser.jobId
     })
+
+   const jobToUser = await jobToUserRepo.findOneBy({
+        id: jobUser.id
+   })
+
+   if(jobToUser) {
+    throw new AppError('Job already exists', 409)
+   }
 
     const newJobToUser = jobToUserRepo.create(jobUser)
 
