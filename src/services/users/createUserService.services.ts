@@ -4,7 +4,7 @@ import AppError from '../../errors/AppError'
 import { IUserRequest } from '../../interfaces/user.interface'
 import { createUserSchema } from '../../schemas/createUser.schemas'
 
-const createUserService = async (userData: IUserRequest) => {
+const createUserService = async (userData: IUserRequest): Promise<User> => {
     try {
         const userDataValidated = await createUserSchema.validate(userData, {
             stripUnknown: true,
