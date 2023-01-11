@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import { createUserController } from '../../controllers'
-import { ensureUserExists } from '../../middlewares'
+import { ensureEmailExists } from '../../middlewares'
 
 const usersRoutes = Router()
 
-usersRoutes.post('', ensureUserExists, createUserController)
+usersRoutes.post('', ensureEmailExists, createUserController)
 
 export default usersRoutes
