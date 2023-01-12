@@ -4,7 +4,7 @@ import { IUserRequest } from '../interfaces/user.interface'
 import AppDataSource from '../data-source'
 import AppError from '../errors/AppError'
 
-export const ensureEmailExists = async (req: Request, res: Response, next: NextFunction) => {
+export const ensureEmailExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const userData: IUserRequest = req.body
     const usersRepository = AppDataSource.getRepository(User)
 

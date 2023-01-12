@@ -3,7 +3,7 @@ import AppDataSource from '../data-source'
 import { User } from '../entities/users.entity'
 import AppError from '../errors/AppError'
 
-export const ensuranceUserIsAdm = async (req: Request, res: Response, next: NextFunction) => {
+export const ensuranceUserIsAdmMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
     const usersRepository = AppDataSource.getRepository(User)
 

@@ -7,5 +7,6 @@ import { createJobService } from './jobs/createJob.service'
 import { deleteJobService } from './jobs/deleteJob.service'
 import { createUserService } from './users/createUserService.service'
 import { sessionService } from './users/sessionService.service'
+import { getAllUsersService } from './users/getAllUsersService.service'
 
-export { getCandidatesJobService, getTechnologiesJobsService, getCompanyJobsService, getAllJobsService, updateJobService, createJobService, deleteJobService, createUserService, sessionService }
+export { getCandidatesJobService, getTechnologiesJobsService, getCompanyJobsService, getAllJobsService, updateJobService, createJobService, deleteJobService, createUserService, sessionService, getAllUsersService }

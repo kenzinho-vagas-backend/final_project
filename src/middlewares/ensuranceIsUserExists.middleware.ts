@@ -4,7 +4,6 @@ import { IUserRequest } from '../interfaces/user.interface'
 import AppError from '../errors/AppError'
 import AppDataSource from '../data-source'
 
-
 export const ensuranceIsUserExists = async (req: Request, res: Response, next: NextFunction) => {
 
     const userData: IUserRequest = req.body

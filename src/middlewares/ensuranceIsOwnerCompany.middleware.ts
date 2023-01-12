@@ -3,8 +3,7 @@ import AppDataSource from '../data-source'
 import { Company } from '../entities/companies.entity'
 import AppError from '../errors/AppError'
 
-
-export const ensuranceIsOwnerCompany = async (req: Request, res: Response, next: NextFunction) => {
+export const ensuranceIsOwnerCompanyMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
 
     const companyRespository = AppDataSource.getRepository(Company)
