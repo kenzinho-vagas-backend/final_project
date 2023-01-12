@@ -3,7 +3,6 @@ import createJobToUserService from '../../services/jobToUser/createJobUser.servi
 import listJobToUserService from '../../services/jobToUser/listJobToUser.service'
 import deleteJobToUserService from '../../services/jobToUser/deleteJobToUser.service' 
 
-
 export const createJobToUserController = async (req: Request, res: Response) => {
     const jobUser = req.body
     const response = await createJobToUserService(jobUser)
