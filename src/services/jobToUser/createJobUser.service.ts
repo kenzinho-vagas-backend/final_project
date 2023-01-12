@@ -1,10 +1,9 @@
-import AppDataSource from "../../data-source";
-import { Job } from "../../entities/jobs.entity";
-import { User } from "../../entities/users.entity";
-import { UserJob } from "../../entities/usersJobs.entity";
-import AppError from "../../errors/AppError";
-import { IUserJobRequest } from "../../interfaces/job.interface";
-
+import AppDataSource from '../../data-source'
+import { Job } from '../../entities/jobs.entity'
+import { User } from '../../entities/users.entity'
+import { UserJob } from '../../entities/usersJobs.entity'
+import { IUserJobRequest } from '../../interfaces/job.interface'
+import AppError from '../../errors/AppError'
 
 const createJobToUserService = async (jobUser: IUserJobRequest | any): Promise<object> => {
     
@@ -42,7 +41,7 @@ const createJobToUserService = async (jobUser: IUserJobRequest | any): Promise<o
         }
     )
 
-    return {message: 'Vaga salva com sucesso!'}
+    return { message: 'Job opportunity saved succesfully!' }
 }
 
 export default createJobToUserService

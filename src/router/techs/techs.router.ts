@@ -4,10 +4,11 @@ import { ensuranceUserIsAdm, ensurePatchDataIsValidMiddleware } from "../../midd
 import { ensureAuthMiddleware } from "../../middlewares/ensureAuth.middleware";
 import { techSerializer } from "../../schemas/techs/technology.schema";
 
-const techsRouter = Router()
+
+const techsRoutes = Router()
 
 techsRouter.post('', ensureAuthMiddleware, ensuranceUserIsAdm, ensurePatchDataIsValidMiddleware(techSerializer), createTechnologyController)
 techsRouter.get('', listTechnologiesController)
 techsRouter.delete('', ensureAuthMiddleware, ensuranceUserIsAdm, deleteTechnolyController)
 
-export default techsRouter
+export default techsRoutes

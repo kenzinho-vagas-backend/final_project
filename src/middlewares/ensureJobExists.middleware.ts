@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import AppDataSource from "../data-source";
-import { Job } from "../entities/jobs.entity";
-import AppError from "../errors/AppError";
+import { NextFunction, Request, Response } from 'express'
+import { Job } from '../entities/jobs.entity'
+import AppDataSource from '../data-source'
+import AppError from '../errors/AppError'
 
 
 export const ensureJobExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {

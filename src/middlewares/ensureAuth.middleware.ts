@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken"
-import "dotenv/config"
+import { Request, Response, NextFunction } from 'express'
+import jwt from 'jsonwebtoken'
+import 'dotenv/config'
 
 export const ensureAuthMiddleware = async (req: Request, res: Response, next: NextFunction) =>{
 
@@ -8,11 +8,11 @@ export const ensureAuthMiddleware = async (req: Request, res: Response, next: Ne
 
     if(!token){
         return res.status(401).json({
-            message: "Invalid Token"
+            message: 'Invalid Token'
         })
     }
 
-    token = token.split(" ")[1]
+    token = token.split(' ')[1]
 
     jwt.verify(token, process.env.SECRET_KEY, (error, decoded: any) =>{
         if(error){
@@ -21,15 +21,11 @@ export const ensureAuthMiddleware = async (req: Request, res: Response, next: Ne
             })
         }
 
-        console.log(decoded)
-
         req.user = {
-            id: decoded.sub,
+            id: decoded.id,
             isAdm: decoded.isAdm 
         }
         
         return next()
     })
-
-
 }

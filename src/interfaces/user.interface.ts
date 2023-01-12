@@ -9,4 +9,13 @@ interface IUserRequest {
     jobLevel: string
 }
 
-export { IUserRequest }
+interface IUserUpdate {
+    email?: string,
+    password?: string,
+    linkedin?: string,
+    bio?: string,
+    specialty?: string,
+    jobLevel?: string
+}
+
+export { IUserRequest, IUserUpdate }

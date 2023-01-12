@@ -6,7 +6,7 @@ export const ensurePatchDataIsValidMiddleware = (schema: AnySchema) => async (re
         const isValid = await schema.validate(req.body, {
             abortEarly: true,
             stripUnknown: true
-        });
+        })
     
         req.body = isValid
         return next()

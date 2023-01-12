@@ -1,10 +1,9 @@
-import { NextFunction, Request, Response } from "express";
-import { request } from "http";
-import AppDataSource from "../data-source";
-import { User } from "../entities/users.entity";
-import AppError from "../errors/AppError";
+import { NextFunction, Request, Response } from 'express'
+import AppDataSource from '../data-source'
+import { User } from '../entities/users.entity'
+import AppError from '../errors/AppError'
 
-export const ensuranceUserIsAdm = async (req: Request, res: Response, next: NextFunction) => {
+export const ensuranceUserIsAdmMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
     const usersRepository = AppDataSource.getRepository(User)
 

@@ -4,13 +4,13 @@ import { IUserRequest } from '../interfaces/user.interface'
 import AppDataSource from '../data-source'
 import AppError from '../errors/AppError'
 
-export const ensureEmailExists = async (req: Request, res: Response, next: NextFunction) => {
-    const userData = req.body
-    const usersRepository = AppDataSource.getRepository(User)
+export const ensureEmailExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+    const userData: IUserRequest = req.body
 
-    const user = await usersRepository.findOneBy({
-        email: userData.email
-    })
+    const user = await AppDataSource.createQueryBuilder()
+    .where('users.email = :userEmail', { userEmail: userData.email })
+    .select()
+    .from(User, 'users').getRawOne()
 
     if (user) {
         if (userData.name) {

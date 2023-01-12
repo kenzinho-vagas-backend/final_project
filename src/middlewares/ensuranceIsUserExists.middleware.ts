@@ -1,9 +1,8 @@
-import { NextFunction, Request, Response } from "express";
-import AppDataSource from "../data-source";
-import { User } from "../entities/users.entity";
-import AppError from "../errors/AppError";
-import { IUserRequest } from "../interfaces/user.interface";
-
+import { NextFunction, Request, Response } from 'express'
+import { User } from '../entities/users.entity'
+import { IUserRequest } from '../interfaces/user.interface'
+import AppError from '../errors/AppError'
+import AppDataSource from '../data-source'
 
 export const ensuranceIsUserExists = async (req: Request, res: Response, next: NextFunction) => {
 

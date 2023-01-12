@@ -1,7 +1,10 @@
 import { ensurePatchDataIsValidMiddleware } from './validateSchema.middleware'
-import { ensureEmailExists } from './ensureEmailExists.middleware'
-import {ensuranceUserIsAdm} from './ensuranceUserIsAdm.middleware'
-import {ensuranceIsUserExists} from './ensuranceIsUserExists.middleware'
-import {ensuranceIsOwnerCompany} from './ensuranceIsOwnerCompany.middleware'
+import { ensureEmailExistsMiddleware } from './ensureEmailExists.middleware'
+import { ensuranceUserIsAdmMiddleware } from './ensuranceUserIsAdm.middleware'
+import { ensuranceIsUserExists } from './ensuranceIsUserExists.middleware'
+import { ensuranceIsOwnerCompanyMiddleware } from './ensuranceIsOwnerCompany.middleware'
+import { ensureAuthMiddleware } from './ensureAuth.middleware'
+import { ensureIDExistsMiddleware } from './ensureIDExists.middleware'
+import { ensureIsValidForPatchMiddleware } from './ensureIsValidForPatch.middleware'
 
-export { ensurePatchDataIsValidMiddleware, ensureEmailExists, ensuranceUserIsAdm, ensuranceIsUserExists, ensuranceIsOwnerCompany}
+export { ensurePatchDataIsValidMiddleware, ensureEmailExistsMiddleware, ensuranceUserIsAdmMiddleware, ensuranceIsUserExists, ensuranceIsOwnerCompanyMiddleware, ensureAuthMiddleware, ensureIDExistsMiddleware, ensureIsValidForPatchMiddleware }
