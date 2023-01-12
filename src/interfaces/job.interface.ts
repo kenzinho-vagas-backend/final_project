@@ -5,12 +5,18 @@ export interface IUserJobRequest {
     jobId: string
 }
 
+export interface IUserJobResponse {
+    id: string
+    userId: string
+    jobId: string
+}
+
 export interface IJobRequest {
     wage: string
     modality: string
     jobLevel: string
     jobUrl: string
-    techs: ITechRequest[]
+    techs: string
 }
 
 export interface IJobResponse {
