@@ -17,7 +17,7 @@ const listTechnologiesController = async(req: Request, res: Response) => {
 const deleteTechnolyController = async (req: Request, res: Response) => {
     const id: string = req.params.id
     await deleteTechnologyService(id)
-    return res.status(200).send()
+    return res.status(204).send()
 }
 
 export { createTechnologyController, listTechnologiesController, deleteTechnolyController }
