@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import { sessionController } from '../../controllers'
-import { ensureUserExists } from '../../middlewares'
+import { ensureEmailExists } from '../../middlewares'
 
 const sessionRoutes = Router()
 
-sessionRoutes.post('', ensureUserExists, sessionController)
+sessionRoutes.post('', ensureEmailExists, sessionController)
 
 export default sessionRoutes

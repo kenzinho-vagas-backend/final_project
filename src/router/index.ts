@@ -1,3 +1,3 @@
-import jobRoutes from "./jobs/jobs.routes";
+import jobRoutes from './jobs/jobs.routes'
 
-export {jobRoutes}
+export { jobRoutes }

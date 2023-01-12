@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { ICompanyRequest } from '../../interfaces/company.interface';
-import { createCompanyService } from '../../services/companies/createCompany.service';
-import { deleteCompanyService } from '../../services/companies/deleteCompany.service';
-import { listAllCompaniesService } from '../../services/companies/listAllCompanies.service';
-import { uptadeCompanyService } from '../../services/companies/uptadeCompany.service';
+import { Request, Response } from 'express'
+import { ICompanyRequest } from '../../interfaces/company.interface'
+import { createCompanyService } from '../../services/companies/createCompany.service'
+import { deleteCompanyService } from '../../services/companies/deleteCompany.service'
+import { listAllCompaniesService } from '../../services/companies/listAllCompanies.service'
+import { uptadeCompanyService } from '../../services/companies/uptadeCompany.service'
 
 const createCompanyController = async (req: Request, res: Response) => {
     const companyData: ICompanyRequest = req.body

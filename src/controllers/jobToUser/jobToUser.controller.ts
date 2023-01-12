@@ -1,7 +1,7 @@
-import { Request, response, Response } from "express";
-import createJobToUserService from "../../services/jobToUser/createJobUser.service";
-import listJobToUserService from "../../services/jobToUser/listJobToUser.service";
-import deleteJobToUserService from "../../services/jobToUser/deleteJobToUser.service"; 
+import { Request, Response } from 'express'
+import createJobToUserService from '../../services/jobToUser/createJobUser.service'
+import listJobToUserService from '../../services/jobToUser/listJobToUser.service'
+import deleteJobToUserService from '../../services/jobToUser/deleteJobToUser.service' 
 
 
 export const createJobToUserController = async (req: Request, res: Response) => {

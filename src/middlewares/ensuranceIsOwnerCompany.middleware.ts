@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import AppDataSource from "../data-source";
-import { Company } from "../entities/companies.entity";
-import AppError from "../errors/AppError";
+import { NextFunction, Request, Response } from 'express'
+import AppDataSource from '../data-source'
+import { Company } from '../entities/companies.entity'
+import AppError from '../errors/AppError'
 
 
 export const ensuranceIsOwnerCompany = async (req: Request, res: Response, next: NextFunction) => {

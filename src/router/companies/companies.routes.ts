@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import { createCompanyController, deleteCompanyController, listAllCompaniesController, uptadeCompanyController } from '../../controllers/companies/companies.controllers';
-import { ensuranceIsOwnerCompany, ensuranceUserIsAdm } from '../../middlewares';
-import {ensureAuthMiddleware} from '../../middlewares/ensureAuth.middleware';
+import { Router } from 'express'
+import { createCompanyController, deleteCompanyController, listAllCompaniesController, uptadeCompanyController } from '../../controllers/companies/companies.controllers'
+import { ensuranceIsOwnerCompany, ensuranceUserIsAdm } from '../../middlewares'
+import { ensureAuthMiddleware } from '../../middlewares/ensureAuth.middleware'
 
 const companiesRoutes = Router()
 
