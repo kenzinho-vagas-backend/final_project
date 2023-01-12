@@ -4,8 +4,8 @@ import deleteTechnologyService from '../../services/techs/deleteTech.service'
 import listTechnologiesService from '../../services/techs/listTechs.service'
 
 const createTechnologyController = async(req: Request, res: Response) => {
-    const { tech } = req.body
-    const newTechnology = await createTechnologyService(tech)
+    const data = req.body
+    const newTechnology = await createTechnologyService(data)
     return res.status(201).json(newTechnology)
 }
 
