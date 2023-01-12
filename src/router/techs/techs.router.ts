@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { listAllCompaniesController } from "../../controllers/companies/companies.controllers";
-import { createTechnologyController, deleteTechnolyController } from "../../controllers/techs/techs.controller";
+import { createTechnologyController, deleteTechnolyController, listTechnologiesController } from "../../controllers/techs/techs.controller";
+import { ensuranceUserIsAdm, ensurePatchDataIsValidMiddleware } from "../../middlewares";
+import { ensureAuthMiddleware } from "../../middlewares/ensureAuth.middleware";
+import { techSerializer } from "../../schemas/techs/technology.schema";
 
 const techsRouter = Router()
 
-techsRouter.post('', createTechnologyController)
-techsRouter.get('', listAllCompaniesController)
-techsRouter.delete('', deleteTechnolyController)
+techsRouter.post('', ensureAuthMiddleware, ensuranceUserIsAdm, ensurePatchDataIsValidMiddleware(techSerializer), createTechnologyController)
+techsRouter.get('', listTechnologiesController)
+techsRouter.delete('', ensureAuthMiddleware, ensuranceUserIsAdm, deleteTechnolyController)
 
 export default techsRouter
