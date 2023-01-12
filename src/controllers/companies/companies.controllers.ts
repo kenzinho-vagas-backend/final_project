@@ -27,7 +27,7 @@ const uptadeCompanyController = async (req: Request, res: Response) => {
 const deleteCompanyController = async (req: Request, res: Response) => {
     const companyId: string = req.params.id
     await deleteCompanyService(companyId)
-    return res.status(200).send()
+    return res.status(204).send()
 }
 
 export { createCompanyController, listAllCompaniesController, uptadeCompanyController, deleteCompanyController }
