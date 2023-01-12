@@ -5,7 +5,8 @@ import deleteJobToUserService from '../../services/jobToUser/deleteJobToUser.ser
 
 export const createJobToUserController = async (req: Request, res: Response) => {
     const jobUser = req.body
-    const response = await createJobToUserService(jobUser)
+    const userId = req.user.id
+    const response = await createJobToUserService(jobUser, userId)
 
     return res.status(201).json(response)
 }
