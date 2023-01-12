@@ -8,5 +8,6 @@ import { deleteJobService } from './jobs/deleteJob.service'
 import { createUserService } from './users/createUserService.service'
 import { sessionService } from './users/sessionService.service'
 import { getAllUsersService } from './users/getAllUsersService.service'
+import { getUserService } from './users/getUserService.service'
 
-export { getCandidatesJobService, getTechnologiesJobsService, getCompanyJobsService, getAllJobsService, updateJobService, createJobService, deleteJobService, createUserService, sessionService, getAllUsersService }
+export { getCandidatesJobService, getTechnologiesJobsService, getCompanyJobsService, getAllJobsService, updateJobService, createJobService, deleteJobService, createUserService, sessionService, getAllUsersService, getUserService }
