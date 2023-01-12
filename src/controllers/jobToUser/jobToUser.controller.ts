@@ -13,6 +13,7 @@ export const createJobToUserController = async (req: Request, res: Response) => 
 
 export const listJobToUserController = async (req: Request, res: Response) => {
     const userId: string = req.user.id
+    
     const response = await listJobToUserService(userId)
 
     return res.status(200).json(response)

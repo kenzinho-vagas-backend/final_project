@@ -8,7 +8,7 @@ class UserJob {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @ManyToOne(() => User, (user) => user.userJob, {eager:true})
+    @ManyToOne(() => User, (user) => user.userJob)
     user: User
 
     @ManyToOne(() => Job, (job) => job.userJob , {eager:true})

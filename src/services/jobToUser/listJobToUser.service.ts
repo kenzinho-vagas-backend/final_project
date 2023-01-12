@@ -1,25 +1,25 @@
 import AppDataSource from "../../data-source"
 import { Job } from "../../entities/jobs.entity"
 import { UserJob } from "../../entities/usersJobs.entity"
+import { User } from "../../entities/users.entity"
 
 const listJobToUserService = async (userId: string) => {
 
-    console.log(userId)
+    const UserJobRepo = AppDataSource.getRepository(UserJob)
 
-    const jobToUserRepo = AppDataSource.getRepository(UserJob)
+    const userRepo = AppDataSource.getRepository(User) 
 
-    const searchJobs = await jobToUserRepo.findOne({
-        where:{
+    const searchUser = await userRepo.findOne({
+        where: {
             id: userId
         },
         relations: {
-            job: true
+            userJob: true
         }
     })
 
-    console.log(searchJobs)
-
-    return searchJobs.job
+    return searchUser.userJob
+    
 }
 
 export default listJobToUserService
