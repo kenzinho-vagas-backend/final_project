@@ -6,7 +6,7 @@ const usersRoutes = Router()
 
 usersRoutes.post('', ensureEmailExistsMiddleware, createUserController)
 usersRoutes.get('', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, getAllUsersController)
-usersRoutes.get('/:id', ensureIDExistsMiddleware, getUserController)
+usersRoutes.get('/:id', ensureAuthMiddleware, ensureIDExistsMiddleware, getUserController)
 usersRoutes.delete('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensureIDExistsMiddleware, deleteUserController)
 
 export default usersRoutes
