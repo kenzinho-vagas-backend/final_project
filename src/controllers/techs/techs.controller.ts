@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import createTechnologyService from '../../services/techs/createTech'
-import deleteTechnologyService from '../../services/techs/deleteTech'
-import listTechnologiesService from '../../services/techs/listTechs'
+import createTechnologyService from '../../services/techs/createTech.service'
+import deleteTechnologyService from '../../services/techs/deleteTech.service'
+import listTechnologiesService from '../../services/techs/listTechs.service'
 
 const createTechnologyController = async(req: Request, res: Response) => {
 
