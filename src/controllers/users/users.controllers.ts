@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { IUserRequest } from '../../interfaces/user.interface'
-import { createUserService, getAllUsersService } from '../../services'
+import { createUserService, getAllUsersService, getUserService } from '../../services'
 
 export const createUserController = async (req: Request, res: Response) => {
     const userData: IUserRequest = req.body
@@ -11,5 +11,10 @@ export const createUserController = async (req: Request, res: Response) => {
 
 export const getAllUsersController = async (req: Request, res: Response) => {
     const allUsers = await getAllUsersService()
+    return res.status(200).json(allUsers)
+}
+
+export const getUserController = async (req: Request, res: Response) => {
+    const allUsers = await getUserService(req.params.id)
     return res.status(200).json(allUsers)
 }
