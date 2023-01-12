@@ -5,5 +5,6 @@ import { ensuranceIsUserExists } from './ensuranceIsUserExists.middleware'
 import { ensuranceIsOwnerCompanyMiddleware } from './ensuranceIsOwnerCompany.middleware'
 import { ensureAuthMiddleware } from './ensureAuth.middleware'
 import { ensureIDExistsMiddleware } from './ensureIDExists.middleware'
+import { ensureIsValidForPatchMiddleware } from './ensureIsValidForPatch.middleware'
 
-export { ensurePatchDataIsValidMiddleware, ensureEmailExistsMiddleware, ensuranceUserIsAdmMiddleware, ensuranceIsUserExists, ensuranceIsOwnerCompanyMiddleware, ensureAuthMiddleware, ensureIDExistsMiddleware }
+export { ensurePatchDataIsValidMiddleware, ensureEmailExistsMiddleware, ensuranceUserIsAdmMiddleware, ensuranceIsUserExists, ensuranceIsOwnerCompanyMiddleware, ensureAuthMiddleware, ensureIDExistsMiddleware, ensureIsValidForPatchMiddleware }

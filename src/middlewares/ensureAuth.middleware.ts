@@ -22,12 +22,10 @@ export const ensureAuthMiddleware = async (req: Request, res: Response, next: Ne
         }
 
         req.user = {
-            id: decoded.sub,
+            id: decoded.id,
             isAdm: decoded.isAdm 
         }
         
         return next()
     })
-
-
 }
