@@ -8,6 +8,5 @@ export interface ICompanyRequest {
 export interface ICompanyResponse {
     companyName: string
     id: string
-    user: User
-    job: Job[]
+    user: string
 }
