@@ -1,12 +1,12 @@
 import { Router } from 'express'
-import { createUserController, getAllUsersController } from '../../controllers'
-import { getUserController } from '../../controllers/users/users.controllers'
-import { ensuranceUserIsAdmMiddleware, ensureAuthMiddleware, ensureEmailExistsMiddleware } from '../../middlewares'
+import { createUserController, deleteUserController, getAllUsersController, getUserController } from '../../controllers/users/users.controllers'
+import { ensuranceUserIsAdmMiddleware, ensureAuthMiddleware, ensureEmailExistsMiddleware, ensureIDExistsMiddleware } from '../../middlewares'
 
 const usersRoutes = Router()
 
 usersRoutes.post('', ensureEmailExistsMiddleware, createUserController)
 usersRoutes.get('', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, getAllUsersController)
-usersRoutes.get('/:id', getUserController)
+usersRoutes.get('/:id', ensureIDExistsMiddleware, getUserController)
+usersRoutes.delete('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensureIDExistsMiddleware, deleteUserController)
 
 export default usersRoutes
