@@ -15,7 +15,7 @@ export const getAllUsersController = async (req: Request, res: Response) => {
 }
 
 export const getUserController = async (req: Request, res: Response) => {
-    const allUsers = await getUserService(res.locals.foundUser)
+    const allUsers = await getUserService(res.locals.foundUser, req.user.id)
     return res.status(200).json(allUsers)
 }
 
