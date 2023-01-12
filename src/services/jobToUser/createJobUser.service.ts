@@ -16,7 +16,6 @@ const createJobToUserService = async (jobUser: IUserJobResponse | any, userId: s
         id: userId
     })
 
- 
     const job = await jobRepo.findOneBy({
         id: jobUser.jobId
     })
@@ -41,7 +40,6 @@ const createJobToUserService = async (jobUser: IUserJobResponse | any, userId: s
     
     
     return userJobSaved.job
-    
 }
 
 export default createJobToUserService
