@@ -23,7 +23,7 @@ export const mockedJobInvalidCompanyId = {
 }
 
 export const mockedJobPatch = {
-    wage: "10000",
+    wage: "100000",
     modality: "Presencial",
     jobLevel: "Pleno"
 }
@@ -37,8 +37,9 @@ export const mockedAdmin = {
     linkedin: "http://linkedin.com/in/admin",
     bio: "Admin do sistema",
     specialty: "Testes",
-    job_level: "Senior"
+    jobLevel: "Senior"
 }
+
 
 export const mockedUser = {
     name: "Jorge",
