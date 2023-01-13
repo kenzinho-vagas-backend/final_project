@@ -10,7 +10,7 @@ import {ensuranceIsOwnerJobMiddleware} from '../../middlewares/ensuranceIsOwnerJ
 
 const jobRoutes = Router()
 
-jobRoutes.post('',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware,ensurePatchDataIsValidMiddleware(createJobSerializer), createJobController)
+jobRoutes.post('',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, createJobController)
 jobRoutes.get('', getAllJobsController)
 jobRoutes.get('/:id', getCompanyJobsController)
 jobRoutes.get('/technologies/:id',ensureAuthMiddleware ,getTechnologiesJobsController)
