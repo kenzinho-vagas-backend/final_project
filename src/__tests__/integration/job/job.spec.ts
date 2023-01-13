@@ -129,7 +129,7 @@ describe('/jobs', () => {
         const response = await request(app).delete(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${admin.body.token}`)
         const jobs = await request(app).get('/jobs')
 
-        expect(response.status).toBe(200)
+        expect(response.status).toBe(204)
     })
 
     // test('GET /jobs -  Must be able to list all jobs from a technology', async () => {
