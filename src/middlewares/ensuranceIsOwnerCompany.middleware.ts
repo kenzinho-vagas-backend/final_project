@@ -18,10 +18,6 @@ export const ensuranceIsOwnerCompanyMiddleware = async (req: Request, res: Respo
         
     })
 
-    console.log(company)
-
-   
-    
     if (company.user.id !== userLogged) {
         throw new AppError('Missing permission adm', 403)
     }

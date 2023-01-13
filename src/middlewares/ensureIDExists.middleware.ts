@@ -11,7 +11,7 @@ export const ensureIDExistsMiddleware = async (req: Request, res: Response, next
     })
 
     if (!foundUser) {
-        throw new AppError('User invalid', 403)
+        throw new AppError('User invalid', 404)
     }  
     
     res.locals.foundUser = foundUser
