@@ -17,6 +17,7 @@ export interface IJobRequest {
     jobLevel: string
     jobUrl: string
     companies: string
+    techs: string
 }
 
 export interface IUpdateJobRequest {
@@ -35,4 +36,5 @@ export interface IJobResponse {
     companies: string
     createdAt: Date
     id: string
+    techs: string
 }
