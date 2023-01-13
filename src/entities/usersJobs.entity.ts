@@ -11,7 +11,7 @@ class UserJob {
     @ManyToOne(() => User, (user) => user.userJob)
     user: User
 
-    @ManyToOne(() => Job, (job) => job.userJob)
+    @ManyToOne(() => Job, (job) => job.userJob , {eager:true})
     job: Job
 }
 

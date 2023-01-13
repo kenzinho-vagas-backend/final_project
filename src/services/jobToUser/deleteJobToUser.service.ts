@@ -1,14 +1,11 @@
 import AppDataSource from "../../data-source"
 import { UserJob } from "../../entities/usersJobs.entity"
 
-const deleteJobToUserService = async (jobId: string, userId: string): Promise<object> => {
+const deleteJobToUserService = async (JobToUserid: string): Promise<object> => {
 
-    await AppDataSource.createQueryBuilder()
-    .delete()
-    .from(UserJob)
-    .where("id = :id", { id: jobId })
-    .andWhere("id = :id", { id: userId })
-    .execute()
+    const userJobRepo =  AppDataSource.getRepository(UserJob)
+
+    await userJobRepo.delete({id: JobToUserid})
 
     return {message: 'Vaga deletada com sucesso!'}
 }
