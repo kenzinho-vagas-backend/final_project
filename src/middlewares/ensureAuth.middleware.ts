@@ -7,8 +7,16 @@ export const ensureAuthMiddleware = async (req: Request, res: Response, next: Ne
 
     let token = req.headers.authorization
 
+<<<<<<< HEAD
     if(!token){
         throw new AppError('Invalid Token', 401)
+=======
+    if (!token) {
+        throw new AppError("No token", 401)
+        return res.status(401).json({
+            message: 'Invalid Token'
+        })
+>>>>>>> 1e774caed4144aeb3f43f12545073dfbe12265bd
     }
 
     token = token.split(' ')[1]

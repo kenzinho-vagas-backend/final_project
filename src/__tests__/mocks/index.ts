@@ -25,7 +25,7 @@ export const mockedJobInvalidCompanyId = {
 }
 
 export const mockedJobPatch = {
-    wage: '10000',
+    wage: '100000',
     modality: 'Presencial',
     jobLevel: 'Pleno'
 }
@@ -40,6 +40,7 @@ export const mockedAdmin: IUserRequest = {
     specialty: 'Testes',
     jobLevel: 'Senior'
 }
+
 
 export const mockedUser: IUserRequest = {
     name: 'Jorge',

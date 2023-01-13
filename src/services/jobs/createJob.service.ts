@@ -14,6 +14,7 @@ export const createJobService = async (data) => {
     }
 
     const newJob = jobRepository.create(data)
+    console.log(newJob)
     const createdJob = await jobRepository.save(newJob)
 
     return createdJob
