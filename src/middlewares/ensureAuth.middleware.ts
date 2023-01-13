@@ -1,24 +1,21 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import 'dotenv/config'
+import AppError from '../errors/AppError'
 
 export const ensureAuthMiddleware = async (req: Request, res: Response, next: NextFunction) =>{
 
     let token = req.headers.authorization
 
     if(!token){
-        return res.status(401).json({
-            message: 'Invalid Token'
-        })
+        throw new AppError('Invalid Token', 401)
     }
 
     token = token.split(' ')[1]
 
     jwt.verify(token, process.env.SECRET_KEY, (error, decoded: any) =>{
         if(error){
-            return res.status(401).json({
-                message: error.message
-            })
+            throw new AppError(error.message, 401)
         }
 
         req.user = {

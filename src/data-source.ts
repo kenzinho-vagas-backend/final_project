@@ -28,6 +28,7 @@ const setDataSourceConfig = (): DataSourceOptions => {
         synchronize: true,
         entities: [entitiesPath],
       };
+
     }
   
     return {
