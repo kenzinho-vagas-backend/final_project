@@ -1,10 +1,14 @@
 import app from './app'
 import AppDataSource from './data-source'
 
+
+
 AppDataSource.initialize().then(() => {
     console.log('Database connected!')
-    app.listen(3000, () => {
-        console.log('Server running in port 3000')
+    const PORT = process.env.PORT || 3000
+    
+    app.listen(PORT, () => {
+        console.log(`Server running on localhost:${PORT}`)
     })
 }).catch(err => {
     console.log(err)
