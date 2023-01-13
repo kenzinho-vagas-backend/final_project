@@ -27,7 +27,7 @@ class User {
     @Column()
     linkedin: string
 
-    @Column({nullable: true})
+    @Column({nullable: true, default: 'Preencha a sua bio'})
     bio?: string
 
     @Column()
