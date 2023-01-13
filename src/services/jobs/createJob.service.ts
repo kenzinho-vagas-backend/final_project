@@ -20,7 +20,15 @@ export const createJobService = async (data: IJobRequest | any)=> {
         throw new AppError('Company not found', 404)
     }
 
-    const newJob = {...data}
+    const noTechs = {
+        wage: data.wage,
+        modality: data.modality,
+        jobLevel: data.jobLevel,
+        jobUrl: data.jobUrl,
+        companies: data.companies,
+    } 
+
+    const newJob = {...noTechs}
 
     const createNewJob = jobRepository.create(newJob)
 
@@ -43,13 +51,16 @@ export const createJobService = async (data: IJobRequest | any)=> {
 
         const newTechToJob =  techToJobRepository.create(newTech)
  
-        const TechToJobWithRelations = {...newTechToJob, technology: newTech, createNewJob}
+        const TechToJobWithRelations = {...newTechToJob, technology: newTech, job: createNewJob}
 
-        await techToJobRepository.save(TechToJobWithRelations)
+        return await techToJobRepository.save(TechToJobWithRelations)
     }
+
+    const newTechToJob =  techToJobRepository.create(searchTech)
  
+    const TechToJobWithRelations = {technology: searchTech, job: createNewJob}
 
-
+    await techToJobRepository.save(TechToJobWithRelations)
    
     ///////////////////////////////////////////////////////////////////////////
 
