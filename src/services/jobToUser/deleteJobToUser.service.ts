@@ -1,5 +1,5 @@
-import AppDataSource from "../../data-source"
-import { UserJob } from "../../entities/usersJobs.entity"
+import AppDataSource from '../../data-source'
+import { UserJob } from '../../entities/usersJobs.entity'
 
 const deleteJobToUserService = async (JobToUserid: string): Promise<object> => {
 

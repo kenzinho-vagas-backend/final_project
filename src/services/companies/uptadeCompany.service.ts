@@ -10,7 +10,7 @@ const uptadeCompanyService = async (companyData: ICompanyRequest, companyId: str
 
     
     if(!company) {
-        throw new AppError("Company not found", 404)
+        throw new AppError('Company not found', 404)
     }
 
     const updatedCompany = companyRepository.create({
