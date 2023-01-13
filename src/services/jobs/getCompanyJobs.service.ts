@@ -5,7 +5,7 @@ import AppError from '../../errors/AppError'
 export const getCompanyJobsService = async (id) => {
     const companyRepository = AppDataSource.getRepository(Company)
 
-    const company = companyRepository.findOneBy({ id: id })
+    const company = await companyRepository.findOneBy({ id: id })
     
     if (!company) {
         throw new AppError('Company not found', 404)

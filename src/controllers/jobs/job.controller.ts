@@ -24,9 +24,10 @@ export const updateJobController = async (req: Request, res: Response) => {
 
 export const deleteJobController = async (req: Request, res: Response) => {
     const jobId = req.params.id
-    await deleteJobService(jobId)
+    const dataJob = req.body
+    await deleteJobService(jobId, dataJob)
 
-    return res.status(200).send()
+    return res.status(204).send()
 }
 
 export const getCompanyJobsController = async (req: Request, res: Response) => {

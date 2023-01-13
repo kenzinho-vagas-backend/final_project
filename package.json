@@ -20,6 +20,7 @@
     "jsonwebtoken": "8.5.1",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.9.1",
     "typeorm": "0.3.11",
     "yup": "0.32.11",
     "@types/express": "^4.17.15",
