@@ -16,25 +16,24 @@ export const ensuranceIsOwnerJobMiddleware = async (req: Request, res: Response,
         }
     })
 
-    console.log(searchJob)
-    
-    const userLogged = req.user.id
-       
-    const company = await companyRespository.findOne({
+    console.log(searchJob.companies.id)
 
-        where: {id: req.params.id },
+
+    const searchCompany = await companyRespository.findOne({
+        where: {id: req.body.companies},
         relations: {
             user: true
         }
-        
     })
 
-    console.log(company)
-
-   
+    console.log(searchCompany.id)
+    console.log(searchCompany.user.id)
     
-    if (company.user.id !== userLogged) {
-        throw new AppError('Missing permission adm', 403)
+    const userLogged = req.user.id
+       
+       
+    if(searchJob.companies.id !== searchCompany.id || searchCompany.user.id !== userLogged) {
+        throw new AppError('Missing adm permission', 403)
     }
     
     return next()
