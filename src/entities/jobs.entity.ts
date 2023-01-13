@@ -25,7 +25,7 @@ class Job {
     @CreateDateColumn()
     createdAt: Date
 
-    @ManyToOne(() => Company, (company) => company.job)
+    @ManyToOne(() => Company, (company) => company.job, {onDelete: 'CASCADE'})
     companies: Company
 
     @OneToMany(() => UserJob, (userJob) => userJob.job)
