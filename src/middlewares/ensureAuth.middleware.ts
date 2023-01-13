@@ -1,12 +1,14 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import 'dotenv/config'
+import AppError from '../errors/AppError'
 
 export const ensureAuthMiddleware = async (req: Request, res: Response, next: NextFunction) =>{
 
     let token = req.headers.authorization
 
-    if(!token){
+    if (!token) {
+        throw new AppError("No token", 401)
         return res.status(401).json({
             message: 'Invalid Token'
         })
