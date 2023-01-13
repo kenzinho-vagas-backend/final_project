@@ -9,12 +9,12 @@ import { ensureJobExistsMiddleware } from '../../middlewares/ensureJobExists.mid
 
 const jobRoutes = Router()
 
-jobRoutes.post('',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensuranceIsOwnerCompanyMiddleware ,ensurePatchDataIsValidMiddleware(createJobSerializer), createJobController)
+jobRoutes.post('',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware,ensurePatchDataIsValidMiddleware(createJobSerializer), createJobController)
 jobRoutes.get('', getAllJobsController)
 jobRoutes.get('/:id', getCompanyJobsController)
 jobRoutes.get('/technologies/:id',ensureAuthMiddleware ,getTechnologiesJobsController)
 jobRoutes.get('/:id/user', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensuranceIsOwnerCompanyMiddleware, ensureJobExistsMiddleware,getCandidatesJobController)
-jobRoutes.patch('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensuranceIsOwnerCompanyMiddleware, ensureJobExistsMiddleware ,updateJobController)
-jobRoutes.delete('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensuranceIsOwnerCompanyMiddleware, ensureJobExistsMiddleware,deleteJobController)
+jobRoutes.patch('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensureJobExistsMiddleware ,updateJobController)
+jobRoutes.delete('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensureJobExistsMiddleware,deleteJobController)
 
 export default jobRoutes
