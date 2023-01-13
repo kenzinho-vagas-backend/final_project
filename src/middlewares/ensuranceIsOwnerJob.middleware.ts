@@ -16,9 +16,6 @@ export const ensuranceIsOwnerJobMiddleware = async (req: Request, res: Response,
         }
     })
 
-    console.log(searchJob.companies.id)
-
-
     const searchCompany = await companyRespository.findOne({
         where: {id: req.body.companies},
         relations: {
@@ -26,9 +23,6 @@ export const ensuranceIsOwnerJobMiddleware = async (req: Request, res: Response,
         }
     })
 
-    console.log(searchCompany.id)
-    console.log(searchCompany.user.id)
-    
     const userLogged = req.user.id
        
        
