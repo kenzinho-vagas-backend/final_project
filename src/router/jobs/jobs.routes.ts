@@ -14,7 +14,7 @@ jobRoutes.post('',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware,ensurePatch
 jobRoutes.get('', getAllJobsController)
 jobRoutes.get('/:id', getCompanyJobsController)
 jobRoutes.get('/technologies/:id',ensureAuthMiddleware ,getTechnologiesJobsController)
-jobRoutes.get('/:id/user',getCandidatesJobController)
+jobRoutes.get('/:id/user',ensureAuthMiddleware,ensureAuthMiddleware,getCandidatesJobController)
 jobRoutes.patch('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensureJobExistsMiddleware ,ensuranceIsOwnerJobMiddleware,updateJobController)
 jobRoutes.delete('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensureJobExistsMiddleware, ensuranceIsOwnerJobMiddleware,deleteJobController)
 
