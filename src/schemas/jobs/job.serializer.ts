@@ -7,8 +7,7 @@ export const createJobSerializer = yup.object().shape({
     modality: yup.string().required('Modality is a required field'),
     jobLevel: yup.string().required('Job level is a required field'),
     jobUrl: yup.string().required('Job url is a required field'),
-
-    companies: yup.string()
+    companies: yup.string().required()
 
 })
 
@@ -17,8 +16,9 @@ export const returnJobSerializer: SchemaOf<IJobResponse>= yup.object().shape({
     modality: yup.string(),
     jobLevel: yup.string(),
     jobUrl: yup.string(),
-    companiesId: yup.string(),
-    createdAt: yup.date()
+    companies: yup.string(),
+    createdAt: yup.date(),
+    id: yup.string()
 })
 
 export const returnedSaveJob = yup.object().shape({
