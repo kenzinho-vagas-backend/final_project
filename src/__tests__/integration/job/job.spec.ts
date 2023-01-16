@@ -94,8 +94,8 @@ describe('/jobs', () => {
     })
 
     test('GET /jobs/companies/id -  Must be able to list all jobs from a company', async () => {
-        const companies = await request(app).get('/companies')
-        const response = await request(app).get(`/jobs/${companies.body[0].id}`)
+        const response = await request(app).get(`/jobs/companies/${mockedJob.companies}`)
+        console.log(response.body)
         expect(response.status).toBe(200)
         expect(response.body.job).toHaveLength(1)
     
@@ -120,7 +120,6 @@ describe('/jobs', () => {
         const admin = await request(app).post('/session').send(mockedAdminLogin)
         const job = await request(app).get('/jobs')
         const response = await request(app).delete(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${admin.body.token}`)
-        const jobs = await request(app).get('/jobs')
 
         expect(response.status).toBe(204)
     })

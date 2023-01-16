@@ -5,7 +5,6 @@ import { Technology } from '../../entities/technologies.entity'
 import { TechJob } from '../../entities/technologiesJobs.entity'
 import AppError from '../../errors/AppError'
 import { IJobRequest, IJobResponse } from '../../interfaces/job.interface'
-import { techsRoutes } from '../../router'
 import { returnJobSerializer } from '../../schemas/jobs/job.serializer'
 
 

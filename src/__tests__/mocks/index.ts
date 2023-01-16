@@ -5,7 +5,8 @@ export const mockedJob = {
     modality: 'Remoto',
     jobLevel: 'Junior',
     jobUrl: 'http://job.com.br',
-    companies: ''
+    companies: '',
+    techs: "JavaScript"
 }
 
 export const mockedInvalidJob = {
