@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import { mockedAdmin, mockedAdminLogin, mockedCompany, mockedCompany2, mockedCompany3, mockedUser, mockedUserLogin } from '../../mocks';
+import { mockedAdmin, mockedAdmin2, mockedAdminLogin, mockedAdminLogin2, mockedCompany, mockedCompany2, mockedCompany3, mockedUser, mockedUserLogin } from '../../mocks';
 
 describe('/companies', () => {
     let connection: DataSource
@@ -85,7 +85,7 @@ describe('/companies', () => {
         expect(response.status).toBe(401)
     })
 
-    test('PATCH /companies/:id - Shoud not be able to uptade without admins permission', async () => {
+    test('PATCH /companies/:id - Should not be able to uptade without admins permission', async () => {
         const newCompanyName = {companyName: 'Kenzinho Mudanças'}
 
         const userLoginResponse = await request(app).post('/session').send(mockedUserLogin)
@@ -95,4 +95,16 @@ describe('/companies', () => {
         expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('message')
     })
+
+    test('PATCH /companies/:id - An admin should not be allowed to update a company that does not belong to him', async () => {
+        const newCompanyName = {companyName: 'Kenzinho Mudanças'}
+
+        await request(app).post('/users').send(mockedAdmin2)
+        const admingLoginResponse = await request(app).post('/session').send(mockedAdminLogin2)
+        const company = await request(app).get('/companies')
+        const response = await request(app).patch(`/companies/${company.body[0].id}`).set('Authorization', `Bearer ${admingLoginResponse.body.token}`).send(newCompanyName)
+        
+        expect(response.status).toBe(403)
+        expect(response.body).toHaveProperty('message')
+    })  
 })
