@@ -84,5 +84,15 @@ describe('/companies', () => {
         expect(response.body).toHaveProperty('message')
         expect(response.status).toBe(401)
     })
-    
+
+    test('PATCH /companies/:id - Shoud not be able to uptade without admins permission', async () => {
+        const newCompanyName = {companyName: 'Kenzinho Mudanças'}
+
+        const userLoginResponse = await request(app).post('/session').send(mockedUserLogin)
+        const company = await request(app).get('/companies')
+        const response = await request(app).patch(`/companies/${company.body[0].id}`).set('Authorization', `Bearer ${userLoginResponse.body.token}`).send(newCompanyName)
+        
+        expect(response.status).toBe(403)
+        expect(response.body).toHaveProperty('message')
+    })
 })
