@@ -2,7 +2,8 @@ import { DataSource } from 'typeorm';
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import { mockedCompany } from '../../mocks';
+import { mockedCompany, mockedUser } from '../../mocks';
+import { response } from 'express';
 
 describe('/companies', () => {
     let connection: DataSource
@@ -27,6 +28,13 @@ describe('/companies', () => {
         expect(response.body).toHaveProperty('companyName')
         expect(response.body).toHaveProperty('id')
         expect(response.body).toHaveProperty('user')
+    })
+
+    test('POST /companies - Should not be able to create a company that already exists', async () => {
+        const response = await request(app).post('/companies').send(mockedCompany)
+        
+        expect(response.status).toBe(409)
+        expect(response.body).toHaveProperty('message')
     })
 
 })
