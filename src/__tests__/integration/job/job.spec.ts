@@ -101,13 +101,6 @@ describe('/jobs', () => {
     
     })
 
-    // test('GET /jobs/id/users -  Must be able to list all candidates from a job', async () => {
-    //     const admin = await request(app).post('/session').send(mockedUserLogin)
-    //     const job = await request(app).get('/jobs')
-    //     const response = await request(app).get(`/jobs/${job.body.id[0]}/users`).set('Authorization', `Bearer ${admin.body.token}`).send(job.body.id[0])
-    
-    // })
-
     test('DELETE /jobs -  should not to be able to delete a job without admin permission',async () => { 
         const admin = await request(app).post('/login').send(mockedUserLogin)
         const job = await request(app).get('/jobs')
@@ -131,12 +124,4 @@ describe('/jobs', () => {
 
         expect(response.status).toBe(204)
     })
-
-    // test('GET /jobs -  Must be able to list all jobs from a technology', async () => {
-    //     const technology = await request(app).get('/technologies')
-    //     const response = await request(app).get(`/jobs/technologies/${technology.body.id[0]}`)
-    //     expect(response.body).toHaveLength(1)
-    //     expect(response.status).toBe(200)
-    
-    // })
 })

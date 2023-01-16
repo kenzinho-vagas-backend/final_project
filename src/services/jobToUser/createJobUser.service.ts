@@ -20,6 +20,7 @@ const createJobToUserService = async (jobUser: IUserJobResponse | any, userId: s
         id: jobUser.jobId
     })
 
+    
     const jobToUser = await AppDataSource.createQueryBuilder().
     select('usersJobs').
     from(UserJob, 'usersJobs').

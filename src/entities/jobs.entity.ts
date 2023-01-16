@@ -1,7 +1,7 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-import { Company } from "./companies.entity"
-import { TechJob } from "./technologiesJobs.entity"
-import { UserJob } from "./usersJobs.entity"
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Company } from './companies.entity'
+import { TechJob } from './technologiesJobs.entity'
+import { UserJob } from './usersJobs.entity'
 
 
 @Entity('jobs')

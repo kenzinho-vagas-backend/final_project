@@ -9,7 +9,9 @@ import { techsRoutes } from '../../router'
 import { returnJobSerializer } from '../../schemas/jobs/job.serializer'
 
 
-export const createJobService = async (data: IJobRequest | any)=> {
+export const createJobService = async (data: IJobRequest | any): Promise<IJobResponse | any>=> {
+    
+
     const jobRepository = AppDataSource.getRepository(Job)
     const companyRepository = AppDataSource.getRepository(Company)
     const techRepository = AppDataSource.getRepository(Technology)

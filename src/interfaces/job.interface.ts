@@ -1,4 +1,4 @@
-import { ITechRequest } from "./technology.interface"
+import { ITechRequest } from './technology.interface'
 
 export interface IUserJobRequest {
     userId: string
