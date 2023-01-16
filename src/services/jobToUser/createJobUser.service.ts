@@ -6,7 +6,7 @@ import { IUserJobRequest, IUserJobResponse } from '../../interfaces/job.interfac
 import AppError from '../../errors/AppError'
 import { returnedSaveJob } from '../../schemas/jobs/job.serializer'
 
-const createJobToUserService = async (jobUser: IUserJobResponse | any, userId: string): Promise<Job> => {
+const createJobToUserService = async (jobUser: IUserJobResponse | any, userId: string): Promise<IUserJobResponse | any> => {
     
     const userRepo = AppDataSource.getRepository(User)
     const jobRepo = AppDataSource.getRepository(Job)
@@ -39,8 +39,9 @@ const createJobToUserService = async (jobUser: IUserJobResponse | any, userId: s
 
     await jobToUserRepo.save(userJobSaved)
     
-    
-    return userJobSaved.job
+    delete userJobSaved.user
+
+    return userJobSaved
 }
 
 export default createJobToUserService
