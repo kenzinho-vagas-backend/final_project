@@ -42,6 +42,17 @@ export const mockedAdmin: IUserRequest = {
     jobLevel: 'Senior'
 }
 
+export const mockedAdmin2: IUserRequest = {
+    name: 'Admin2',
+    email: 'admin2@mail.com',
+    password: 'admin2',
+    isAdm: true,
+    linkedin: 'http://linkedin.com/in/admin',
+    bio: 'Admin do sistema',
+    specialty: 'Testes',
+    jobLevel: 'Pleno'
+}
+
 
 export const mockedUser: IUserRequest = {
     name: 'Jorge',
@@ -59,6 +70,11 @@ export const mockedAdminLogin = {
     password: 'admin'
 }
 
+export const mockedAdminLogin2 = {
+    email: 'admin2@mail.com',
+    password: 'admin2'
+}
+
 export const mockedUserLogin = {
     email: 'jorge@mail.com',
     password: '1234'
@@ -66,6 +82,14 @@ export const mockedUserLogin = {
 
 export const mockedCompany = {
     companyName: 'Kenzinho'
+}
+
+export const mockedCompany2 = {
+    companyName: 'Kenzinho Produções'
+}
+
+export const mockedCompany3 = {
+    companyName: 'Kezinho Tecnologias'
 }
 
 export const mockedTechnology = {
