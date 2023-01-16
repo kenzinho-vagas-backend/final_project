@@ -5,21 +5,19 @@ import AppError from '../errors/AppError'
 
 export const ensuranceIsOwnerCompanyMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
-    const companyRespository = AppDataSource.getRepository(Company)
+    const companyRepository = AppDataSource.getRepository(Company)
     
     const userLogged = req.user.id
        
-    const company = await companyRespository.findOne({
-
-        where: {id: req.params.id },
+    const searchCompany = await companyRepository.findOne({
+        where: {id: req.params.id},
         relations: {
             user: true
         }
-        
     })
 
-    if (company.user.id !== userLogged) {
-        throw new AppError('Missing permission adm', 403)
+    if(searchCompany.user.id !== userLogged) {
+        throw new AppError('This company does not belong', 403)
     }
     
     return next()
