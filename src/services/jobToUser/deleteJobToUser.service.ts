@@ -1,14 +1,22 @@
-import AppDataSource from "../../data-source"
-import { UserJob } from "../../entities/usersJobs.entity"
+import AppDataSource from '../../data-source'
+import { UserJob } from '../../entities/usersJobs.entity'
+import AppError from '../../errors/AppError'
 
-const deleteJobToUserService = async (jobId: string, userId: string): Promise<object> => {
+const deleteJobToUserService = async (JobToUserid: string): Promise<object> => {
 
-    await AppDataSource.createQueryBuilder()
-    .delete()
-    .from(UserJob)
-    .where("id = :id", { id: jobId })
-    .andWhere("id = :id", { id: userId })
-    .execute()
+    const userJobRepo =  AppDataSource.getRepository(UserJob)
+
+    const searchJobToUser = await userJobRepo.findOneBy({
+        id: JobToUserid
+    })
+
+    if(!searchJobToUser) {
+        throw new AppError('Vaga não existe', 404)
+    }
+
+    await userJobRepo.delete({id: JobToUserid})
+
+  
 
     return {message: 'Vaga deletada com sucesso!'}
 }

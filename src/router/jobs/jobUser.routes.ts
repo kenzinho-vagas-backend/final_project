@@ -9,6 +9,6 @@ const jobUserRoutes = Router()
 
 jobUserRoutes.post('', ensureAuthMiddleware,createJobToUserController)
 jobUserRoutes.get('', ensureAuthMiddleware, listJobToUserController)
-jobUserRoutes.delete('/:id', ensureAuthMiddleware,ensureJobExistsMiddleware ,deleteJobToUserController)
+jobUserRoutes.delete('/:id', ensureAuthMiddleware,deleteJobToUserController)
 
 export default jobUserRoutes

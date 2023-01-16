@@ -1,6 +1,6 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
-import { Job } from "./jobs.entity"
-import { Technology } from "./technologies.entity"
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Job } from './jobs.entity'
+import { Technology } from './technologies.entity'
 
 
 @Entity('techsJobs')
@@ -12,7 +12,7 @@ class TechJob {
     @ManyToOne (() => Technology, (technology) => technology.techsJobs)
     technology: Technology
 
-    @ManyToOne (() => Job, (job) => job.techsJobs)
+    @ManyToOne (() => Job, (job) => job.techsJobs, {onDelete: 'SET NULL'})
     job: Job
 }
 

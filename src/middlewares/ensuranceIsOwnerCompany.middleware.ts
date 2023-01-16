@@ -11,17 +11,17 @@ export const ensuranceIsOwnerCompanyMiddleware = async (req: Request, res: Respo
        
     const company = await companyRespository.findOne({
 
-        where: {id: req.params.id },
+        where: {id: req.body.companies },
         relations: {
             user: true
         }
         
     })
 
-    console.log(company)
+    console.log(company.user.id)
+    console.log(userLogged)
+    console.log(req.body.companies)
 
-   
-    
     if (company.user.id !== userLogged) {
         throw new AppError('Missing permission adm', 403)
     }

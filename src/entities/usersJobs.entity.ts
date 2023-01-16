@@ -1,6 +1,6 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
-import { Job } from "./jobs.entity"
-import { User } from "./users.entity"
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Job } from './jobs.entity'
+import { User } from './users.entity'
 
 @Entity('usersJobs')
 class UserJob {
@@ -11,7 +11,7 @@ class UserJob {
     @ManyToOne(() => User, (user) => user.userJob)
     user: User
 
-    @ManyToOne(() => Job, (job) => job.userJob)
+    @ManyToOne(() => Job, (job) => job.userJob , {onDelete: 'SET NULL', eager: true})
     job: Job
 }
 

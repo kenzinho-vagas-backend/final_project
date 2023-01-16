@@ -1,4 +1,12 @@
+import { ITechRequest } from './technology.interface'
+
 export interface IUserJobRequest {
+    userId: string
+    jobId: string
+}
+
+export interface IUserJobResponse {
+    id: string
     userId: string
     jobId: string
 }
@@ -8,6 +16,16 @@ export interface IJobRequest {
     modality: string
     jobLevel: string
     jobUrl: string
+    companies: string
+    techs: string
+}
+
+export interface IUpdateJobRequest {
+    wage?: string
+    modality?: string
+    jobLevel?: string
+    jobUrl?: string
+    companies: string
 }
 
 export interface IJobResponse {
@@ -15,6 +33,8 @@ export interface IJobResponse {
     modality: string
     jobLevel: string
     jobUrl: string
-    companiesId: string
+    companies: string
     createdAt: Date
+    id: string
+    techs: string
 }

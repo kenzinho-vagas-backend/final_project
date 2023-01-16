@@ -1,7 +1,7 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-import { Company } from "./companies.entity"
-import { TechJob } from "./technologiesJobs.entity"
-import { UserJob } from "./usersJobs.entity"
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Company } from './companies.entity'
+import { TechJob } from './technologiesJobs.entity'
+import { UserJob } from './usersJobs.entity'
 
 
 @Entity('jobs')
@@ -25,7 +25,7 @@ class Job {
     @CreateDateColumn()
     createdAt: Date
 
-    @ManyToOne(() => Company, (company) => company.job)
+    @ManyToOne(() => Company, (company) => company.job, {onDelete: 'CASCADE'})
     companies: Company
 
     @OneToMany(() => UserJob, (userJob) => userJob.job)

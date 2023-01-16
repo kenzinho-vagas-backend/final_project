@@ -7,20 +7,15 @@ export const ensureAuthMiddleware = async (req: Request, res: Response, next: Ne
 
     let token = req.headers.authorization
 
-    if (!token) {
-        throw new AppError("No token", 401)
-        return res.status(401).json({
-            message: 'Invalid Token'
-        })
+    if(!token){
+        throw new AppError('Invalid Token', 401)
     }
 
     token = token.split(' ')[1]
 
     jwt.verify(token, process.env.SECRET_KEY, (error, decoded: any) =>{
         if(error){
-            return res.status(401).json({
-                message: error.message
-            })
+            throw new AppError(error.message, 401)
         }
 
         req.user = {
