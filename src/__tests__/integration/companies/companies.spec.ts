@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import { mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin } from '../../mocks';
+import { mockedAdmin, mockedAdminLogin, mockedCompany, mockedCompany2, mockedCompany3, mockedUser, mockedUserLogin } from '../../mocks';
 
 describe('/companies', () => {
     let connection: DataSource
@@ -51,6 +51,17 @@ describe('/companies', () => {
     
         expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('message')
+    })  
+
+    test('GET /companies - Should be able to list all companies', async () => {
+        await request(app).post('/users').send(mockedAdmin)
+        const adminLogin = await request(app).post('/session').send(mockedAdminLogin)
+        await request(app).post('/companies').set('Authorization', `Bearer ${adminLogin.body.token}`).send(mockedCompany2)
+        await request(app).post('/companies').set('Authorization', `Bearer ${adminLogin.body.token}`).send(mockedCompany3)
+        const response = await request(app).get('/companies')
+
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveLength(3)
     })
 
 })

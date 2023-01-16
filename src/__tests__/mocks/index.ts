@@ -67,6 +67,14 @@ export const mockedCompany = {
     companyName: 'Kenzinho'
 }
 
+export const mockedCompany2 = {
+    companyName: 'Kenzinho Produções'
+}
+
+export const mockedCompany3 = {
+    companyName: 'Kezinho Tecnologias'
+}
+
 export const mockedTechnology = {
     name: 'JavaScript'
 }
