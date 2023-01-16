@@ -37,6 +37,13 @@ describe('/companies', () => {
         expect(response.body).toHaveProperty('message')
     })
 
+    test('POST /companies - Should not be able to create a company without authentication', async () => {
+        const response = await request(app).post('/companies')
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty('message')
+    })
+
     test('POST /companies - Only Admin should be able to create a company', async () => {
         await request(app).post('/users').send(mockedUser)
         const userLogin = await request(app).post('/session').send(mockedUserLogin)
