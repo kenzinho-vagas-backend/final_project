@@ -11,14 +11,14 @@ const deleteJobToUserService = async (JobToUserid: string): Promise<object> => {
     })
 
     if(!searchJobToUser) {
-        throw new AppError('Vaga não existe', 404)
+        throw new AppError('Job has already been saved', 404)
     }
 
     await userJobRepo.delete({id: JobToUserid})
 
   
 
-    return {message: 'Vaga deletada com sucesso!'}
+    return {}
 }
 
 export default deleteJobToUserService
