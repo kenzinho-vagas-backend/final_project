@@ -81,8 +81,8 @@ describe('/companies', () => {
         const companyToBeUpdate = await request(app).get('/companies').set('Authorization', `Bearer ${admingLoginResponse.body.token}`)
         const response = await request(app).patch(`/companies/${companyToBeUpdate.body[0].id}`)
 
-        expect(response.body).toHaveProperty('message')
         expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty('message')
     })
 
     test('PATCH /companies/:id - Should not be able to update without admins permission', async () => {
@@ -116,6 +116,30 @@ describe('/companies', () => {
         const response = await request(app).patch(`/companies/${invalId}`).set('Authorization', `Bearer ${admingLoginResponse.body.token}`).send(newCompanyName)
         
         expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
+    })
+
+    test('DELETE /companies/:id - Should not be able to delete a company without Authorization', async () => {
+        await request(app).post('/users').send(mockedAdmin)
+
+        const adminLoginResponse = await request(app).post('/session').send(mockedAdminLogin)
+        const companyToBeDeleted = await request(app).get('/companies')
+
+        const response = await request(app).delete(`/companies/${companyToBeDeleted.body[0].id}`)
+        
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty('message')
+    })
+
+    test('DELETE /companies/:id - Should not be able to delete a company without admin permission', async () => {
+        await request(app).post('/users').send(mockedUser)
+
+        const userLoginResponse = await request(app).post('/session').send(mockedUserLogin)
+        const companyToBeDeleted = await request(app).get('/companies')
+
+        const response = await request(app).delete(`/companies/${companyToBeDeleted.body[0].id}`).set('Authorization', `Bearer ${userLoginResponse.body.token}`)
+        
+        expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('message')
     })
     
