@@ -64,4 +64,15 @@ describe('/companies', () => {
         expect(response.body).toHaveLength(3)
     })
 
+    test('PATCH /companies/:id - Should be able to update a company', async () => {
+        const newCompanyName = {companyName: 'Kenzinho Mudanças'}
+
+        const admingLoginResponse = await request(app).post('/session').send(mockedAdminLogin)
+        const company = await request(app).get('/companies')
+        const response = await request(app).patch(`/companies/${company.body[0].id}`).set('Authorization', `Bearer ${admingLoginResponse.body.token}`).send(newCompanyName)
+        
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty('id')
+        expect(response.body).toHaveProperty('companyName')
+    })
 })
