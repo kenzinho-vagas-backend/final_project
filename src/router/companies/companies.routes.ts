@@ -10,7 +10,7 @@ const companiesRoutes = Router()
 
 companiesRoutes.post('',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, createCompanyController)
 companiesRoutes.get('', listAllCompaniesController)
-companiesRoutes.patch('/:id',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensuranceIsOwnerCompanyMiddleware, uptadeCompanyController)
-companiesRoutes.delete('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensuranceIsOwnerCompanyMiddleware,deleteCompanyController)
+companiesRoutes.patch('/:id',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, uptadeCompanyController)
+companiesRoutes.delete('/:id', ensureAuthMiddleware, ensuranceUserIsAdmMiddleware,deleteCompanyController)
 
 export default companiesRoutes
