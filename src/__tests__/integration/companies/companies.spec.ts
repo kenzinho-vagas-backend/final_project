@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import { mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser } from '../../mocks';
+import { mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin } from '../../mocks';
 
 describe('/companies', () => {
     let connection: DataSource
@@ -34,6 +34,15 @@ describe('/companies', () => {
         const response = await request(app).post('/companies').set('Authorization', `Bearer ${adminLogin.body.token}`).send(mockedCompany)
         
         expect(response.status).toBe(409)
+        expect(response.body).toHaveProperty('message')
+    })
+
+    test('POST /companies - Only Admin should be able to create a company', async () => {
+        await request(app).post('/users').send(mockedUser)
+        const userLogin = await request(app).post('/session').send(mockedUserLogin)
+        const response = await request(app).post('/companies').set('Authorization', `Bearer ${userLogin.body.token}`).send(mockedCompany)
+    
+        expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('message')
     })
 
