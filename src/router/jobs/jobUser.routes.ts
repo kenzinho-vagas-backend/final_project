@@ -3,7 +3,6 @@ import { createJobToUserController } from '../../controllers/jobToUser/jobToUser
 import { listJobToUserController } from '../../controllers/jobToUser/jobToUser.controller'
 import { deleteJobToUserController } from '../../controllers/jobToUser/jobToUser.controller'
 import { ensureAuthMiddleware } from '../../middlewares/ensureAuth.middleware'
-import { ensureJobExistsMiddleware } from '../../middlewares/ensureJobExists.middleware'
 
 const jobUserRoutes = Router()
 

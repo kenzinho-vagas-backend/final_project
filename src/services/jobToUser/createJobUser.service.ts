@@ -5,6 +5,7 @@ import { UserJob } from '../../entities/usersJobs.entity'
 import { IUserJobRequest, IUserJobResponse } from '../../interfaces/job.interface'
 import AppError from '../../errors/AppError'
 import { returnedSaveJob } from '../../schemas/jobs/job.serializer'
+import { Company } from '../../entities/companies.entity'
 
 const createJobToUserService = async (jobUser: IUserJobResponse | any, userId: string): Promise<IUserJobResponse | any> => {
     
@@ -30,7 +31,7 @@ const createJobToUserService = async (jobUser: IUserJobResponse | any, userId: s
 
   
     if(jobToUser) {
-        throw new AppError('Vaga já salva', 409)
+        throw new AppError('Job has already been saved', 409)
     }
  
     const newUserJob = jobToUserRepo.create(jobUser)
