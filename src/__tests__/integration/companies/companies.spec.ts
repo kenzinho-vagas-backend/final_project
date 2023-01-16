@@ -44,7 +44,7 @@ describe('/companies', () => {
         expect(response.body).toHaveProperty('message')
     })
 
-    test('POST /companies - Only Admin should be able to create a company', async () => {
+    test('POST /companies - Should not be able to create a company without admins permission', async () => {
         await request(app).post('/users').send(mockedUser)
         const userLogin = await request(app).post('/session').send(mockedUserLogin)
         const response = await request(app).post('/companies').set('Authorization', `Bearer ${userLogin.body.token}`).send(mockedCompany)
@@ -106,5 +106,16 @@ describe('/companies', () => {
         
         expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('message')
-    })  
+    })
+
+    test('PATCH /companies/:id - Should no be able to uptade a company with invalid id', async () => {
+        const newCompanyName = {companyName: 'Kenzinho Mudanças'}
+        const invalId = 'Hjhd-sjfsjkhf66-hjqdh0'
+
+        const admingLoginResponse = await request(app).post('/session').send(mockedAdminLogin2)
+        const response = await request(app).patch(`/companies/${invalId}`).set('Authorization', `Bearer ${admingLoginResponse.body.token}`).send(newCompanyName)
+        
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
+    })
 })
