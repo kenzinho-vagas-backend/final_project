@@ -75,4 +75,14 @@ describe('/companies', () => {
         expect(response.body).toHaveProperty('id')
         expect(response.body).toHaveProperty('companyName')
     })
+
+    test('PATCH /companies/:id - Should not be able to uptade a company without authentication', async () => {
+        const admingLoginResponse = await request(app).post('/session').send(mockedAdminLogin)
+        const companyToBeUpdate = await request(app).get('/companies').set('Authorization', `Bearer ${admingLoginResponse.body.token}`)
+        const response = await request(app).patch(`/companies/${companyToBeUpdate.body[0].id}`)
+
+        expect(response.body).toHaveProperty('message')
+        expect(response.status).toBe(401)
+    })
+    
 })
