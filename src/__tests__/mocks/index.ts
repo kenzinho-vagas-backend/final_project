@@ -1,3 +1,4 @@
+import { IUserJobRequest } from '../../interfaces/job.interface'
 import { IUserRequest } from '../../interfaces/user.interface'
 
 export const mockedJob = {
@@ -7,6 +8,29 @@ export const mockedJob = {
     jobUrl: 'http://job.com.br',
     companies: '',
     techs: "JavaScript"
+
+}
+
+
+export const mockedJob2 = {
+    wage: '7000',
+    modality: 'Remoto',
+    jobLevel: 'Senior',
+    jobUrl: 'http://jobs.com.br',
+    companies: '',
+    techs: 'MySQL',
+    jobId: ''
+}
+
+export const mockedJob3 = {
+    wage: '10000',
+    modality: 'Remoto',
+    jobLevel: 'Pleno',
+    jobUrl: 'http://jobs.com.br',
+    companies: '',
+    techs: 'React',
+    jobId: ''
+
 }
 
 export const mockedInvalidJob = {
@@ -14,7 +38,7 @@ export const mockedInvalidJob = {
     modalidade: 'home office',
     nivel: 'senior',
     url: 'urlInvalida.com',
-    empresa: '1'
+    empresa: '1',
 }
 
 export const mockedJobInvalidCompanyId = {
@@ -95,3 +119,8 @@ export const mockedCompany3 = {
 export const mockedTechnology = {
     name: 'JavaScript'
 }
+
+export const mockedJobUser : IUserJobRequest = {
+    jobId: ''
+}
+
