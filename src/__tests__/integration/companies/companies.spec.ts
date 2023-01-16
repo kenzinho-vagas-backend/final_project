@@ -120,6 +120,13 @@ describe('/companies', () => {
     })
     
     test('DELETE /companies/:id - Should be able to delete a company', async () => {
+        await request(app).post('/users').send(mockedAdmin)
 
+        const adminLoginResponse = await request(app).post('/session').send(mockedAdminLogin)
+        const companyToBeDeleted = await request(app).get('/companies')
+
+        const response = await request(app).delete(`/companies/${companyToBeDeleted.body[0].id}`).set('Authorization', `Bearer ${adminLoginResponse.body.token}`)
+        
+        expect(response.status).toBe(204)
     })
 })
