@@ -156,6 +156,18 @@ describe('/companies', () => {
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty('message')
     })
+
+    test('DELETE /companies/:id - An admin should not be allowed to delete a company that does not belong to him', async () => {
+        await request(app).post('/users').send(mockedAdmin2)
+
+        const adminLoginResponse = await request(app).post('/session').send(mockedAdminLogin2)
+        const companyToBeDeleted = await request(app).get('/companies')
+
+        const response = await request(app).delete(`/companies/${companyToBeDeleted.body[0].id}`).set('Authorization', `Bearer ${adminLoginResponse.body.token}`)
+        
+        expect(response.status).toBe(403)
+        expect(response.body).toHaveProperty('message')
+    })
     
     test('DELETE /companies/:id - Should be able to delete a company', async () => {
         await request(app).post('/users').send(mockedAdmin)
