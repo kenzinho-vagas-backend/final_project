@@ -3,7 +3,8 @@ import { Request, Response } from 'express'
 
 export const createJobController = async (req: Request, res: Response) => {
   const data = req.body
-  const response = await createJobService(data)
+  const userId = req.user.id
+  const response = await createJobService(data, userId)
 
   return res.status(201).json(response)
 }

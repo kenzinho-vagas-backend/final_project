@@ -9,13 +9,26 @@ import { techsRoutes } from '../../router'
 import { returnJobSerializer } from '../../schemas/jobs/job.serializer'
 
 
-export const createJobService = async (data: IJobRequest | any): Promise<IJobResponse | any>=> {
+export const createJobService = async (data: IJobRequest | any, userId: string): Promise<IJobResponse | any>=> {
     
-
     const jobRepository = AppDataSource.getRepository(Job)
     const companyRepository = AppDataSource.getRepository(Company)
     const techRepository = AppDataSource.getRepository(Technology)
     const techToJobRepository = AppDataSource.getRepository(TechJob)
+
+    const searchCompany = await companyRepository.findOne({
+
+        where: {id: data.companies},
+        relations: {
+            user: true
+        }
+        
+    })
+
+    if (searchCompany.user.id !== userId) {
+        throw new AppError('This company does not belong', 403)
+    }
+
   
     const company = companyRepository.findOneBy({ id: data.companies})
    
