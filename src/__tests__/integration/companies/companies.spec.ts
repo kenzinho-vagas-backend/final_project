@@ -76,7 +76,7 @@ describe('/companies', () => {
         expect(response.body).toHaveProperty('companyName')
     })
 
-    test('PATCH /companies/:id - Should not be able to uptade a company without authentication', async () => {
+    test('PATCH /companies/:id - Should not be able to update a company without authentication', async () => {
         const admingLoginResponse = await request(app).post('/session').send(mockedAdminLogin)
         const companyToBeUpdate = await request(app).get('/companies').set('Authorization', `Bearer ${admingLoginResponse.body.token}`)
         const response = await request(app).patch(`/companies/${companyToBeUpdate.body[0].id}`)
@@ -85,7 +85,7 @@ describe('/companies', () => {
         expect(response.status).toBe(401)
     })
 
-    test('PATCH /companies/:id - Should not be able to uptade without admins permission', async () => {
+    test('PATCH /companies/:id - Should not be able to update without admins permission', async () => {
         const newCompanyName = {companyName: 'Kenzinho Mudanças'}
 
         const userLoginResponse = await request(app).post('/session').send(mockedUserLogin)
@@ -108,7 +108,7 @@ describe('/companies', () => {
         expect(response.body).toHaveProperty('message')
     })
 
-    test('PATCH /companies/:id - Should no be able to uptade a company with invalid id', async () => {
+    test('PATCH /companies/:id - Should not be able to update a company with invalid id', async () => {
         const newCompanyName = {companyName: 'Kenzinho Mudanças'}
         const invalId = 'Hjhd-sjfsjkhf66-hjqdh0'
 
@@ -117,5 +117,9 @@ describe('/companies', () => {
         
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty('message')
+    })
+    
+    test('DELETE /companies/:id - Should be able to delete a company', async () => {
+
     })
 })
