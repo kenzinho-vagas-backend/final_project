@@ -142,6 +142,20 @@ describe('/companies', () => {
         expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('message')
     })
+
+    test('DELETE /companies/:id - Should not be able to delete a company with invalid id', async () => {
+        await request(app).post('/users').send(mockedAdmin)
+        
+        const invalId = 'Hjhd-sjfsjkhf66-hjqdh0'
+
+        const adminLoginResponse = await request(app).post('/session').send(mockedAdminLogin)
+        const companyToBeDeleted = await request(app).get('/companies')
+
+        const response = await request(app).delete(`/companies/${invalId}`).set('Authorization', `Bearer ${adminLoginResponse.body.token}`)
+        
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
+    })
     
     test('DELETE /companies/:id - Should be able to delete a company', async () => {
         await request(app).post('/users').send(mockedAdmin)
