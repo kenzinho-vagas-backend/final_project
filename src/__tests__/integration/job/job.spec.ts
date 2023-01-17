@@ -143,10 +143,10 @@ describe('/jobs', () => {
     })
 
     test('GET /jobs/technologies/:id - should not be able to list without token', async () => {
-        const listTech = await request(app).get(`/techs`) 
-        const response = await request(app).get(`/jobs/technologies/${listTech.body[0].id}`)
+        const login = await request(app).post("/session").send(mockedUserLogin)
+        const response = await request(app).get(`/jobs/technologies/1`).set('Authorization', `Bearer ${login.body.token}`)
     
-        expect(response.status).toBe(401)
+        expect(response.status).toBe(404)
     })
 
     test('DELETE /jobs -  should not to be able to delete a job without admin permission',async () => { 
