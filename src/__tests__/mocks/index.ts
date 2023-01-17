@@ -152,3 +152,6 @@ export const mockedJobUser : IUserJobRequest = {
     jobId: ''
 }
 
+export const mockedJobUserInvalid = {
+    jobId: '1234'
+}
