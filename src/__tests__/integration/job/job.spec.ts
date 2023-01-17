@@ -131,7 +131,6 @@ describe('/jobs', () => {
 
     test('GET /jobs/companies/id -  Must be able to list all jobs from a company', async () => {
         const response = await request(app).get(`/jobs/companies/${mockedJob.companies}`)
-        console.log(response.body)
 
         expect(response.status).toBe(200)
         expect(response.body.job).toHaveLength(1)    
