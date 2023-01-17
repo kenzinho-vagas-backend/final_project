@@ -12,6 +12,7 @@ import { techsRoutes } from './router'
 
 const app = express()
 app.use(express.json())
+app.use(express.static('documentation'))
 
 app.use('/jobs', jobRoutes)
 app.use('/companies', companiesRoutes)
