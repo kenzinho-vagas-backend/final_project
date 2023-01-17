@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import {mockedAdmin, mockedAdminLogin, mockedCompany, mockedJob, mockedJob2, mockedJob3, mockedJobUser, mockedUser, mockedUser2, mockedUserLogin, mockedUserLogin2} from '../../mocks'
+import {mockedAdmin, mockedAdminLogin, mockedCompany, mockedJob, mockedJob2, mockedJob3, mockedJobUser, mockedJobUserInvalid, mockedUser, mockedUser2, mockedUserLogin, mockedUserLogin2} from '../../mocks'
 
 describe('/jobUser', () => {
     let connection: DataSource
@@ -61,7 +61,7 @@ describe('/jobUser', () => {
     })
 
     test('POST /jobUser - Should not be able to saved Job without auth token', async () => {
-
+        const jobs = await request(app).get('/jobs')
         const response = await request(app).post('/jobUser')
 
         expect(response.status).toBe(401)
@@ -89,19 +89,32 @@ describe('/jobUser', () => {
     })
 
     test('DELETE /jobUser - Should not be able to delete a saved job with an invalid id', async() => {
-
+        const userLoginResponse = await request(app).post('/session').send(mockedUserLogin)
+        
+        const response = await request(app).delete(`/jobUser/${mockedJobUserInvalid}`).set('Authorization', `Bearer ${userLoginResponse.body.token}`)
+        
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
     })
 
     test('DELETE /jobUser - Should not be able to delete a saved job without auth token', async() => {
+        const user = await request(app).post('/session').send(mockedUserLogin2)
         
+        const job = await request(app).get('/jobUser').set('Authorization', `Bearer ${user.body.token}`)
+        
+        const response = await request(app).delete(`/jobUser/${job.body[0].id}`)
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty('message')
     })
 
 
     test('DELETE /jobUser -  should be able to delete a job saved.',async () => { 
-        const user = await request(app).post('/session').send(mockedUserLogin)
-        const job = await request(app).get('/jobUser')
+        const user = await request(app).post('/session').send(mockedUserLogin2)
+        
+        const job = await request(app).get('/jobUser').set('Authorization', `Bearer ${user.body.token}`)
+
         const response = await request(app).delete(`/jobUser/${job.body[0].id}`).set('Authorization', `Bearer ${user.body.token}`)
-        const jobUser = await request(app).get('/jobUser')
 
         expect(response.status).toBe(204)
     })
