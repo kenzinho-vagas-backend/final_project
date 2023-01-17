@@ -1,3 +1,4 @@
+import { IUserJobRequest } from '../../interfaces/job.interface'
 import { IUserRequest } from '../../interfaces/user.interface'
 
 export const mockedJob = {
@@ -5,7 +6,31 @@ export const mockedJob = {
     modality: 'Remoto',
     jobLevel: 'Junior',
     jobUrl: 'http://job.com.br',
-    companies: ''
+    companies: '',
+    techs: "JavaScript"
+
+}
+
+
+export const mockedJob2 = {
+    wage: '7000',
+    modality: 'Remoto',
+    jobLevel: 'Senior',
+    jobUrl: 'http://jobs.com.br',
+    companies: '',
+    techs: 'MySQL',
+    jobId: ''
+}
+
+export const mockedJob3 = {
+    wage: '10000',
+    modality: 'Remoto',
+    jobLevel: 'Pleno',
+    jobUrl: 'http://jobs.com.br',
+    companies: '',
+    techs: 'React',
+    jobId: ''
+
 }
 
 export const mockedInvalidJob = {
@@ -13,7 +38,7 @@ export const mockedInvalidJob = {
     modalidade: 'home office',
     nivel: 'senior',
     url: 'urlInvalida.com',
-    empresa: '1'
+    empresa: '1',
 }
 
 export const mockedJobInvalidCompanyId = {
@@ -41,6 +66,17 @@ export const mockedAdmin: IUserRequest = {
     jobLevel: 'Senior'
 }
 
+export const mockedAdmin2: IUserRequest = {
+    name: 'Admin2',
+    email: 'admin2@mail.com',
+    password: 'admin2',
+    isAdm: true,
+    linkedin: 'http://linkedin.com/in/admin',
+    bio: 'Admin do sistema',
+    specialty: 'Testes',
+    jobLevel: 'Pleno'
+}
+
 
 export const mockedUser: IUserRequest = {
     name: 'Jorge',
@@ -58,6 +94,11 @@ export const mockedAdminLogin = {
     password: 'admin'
 }
 
+export const mockedAdminLogin2 = {
+    email: 'admin2@mail.com',
+    password: 'admin2'
+}
+
 export const mockedUserLogin = {
     email: 'jorge@mail.com',
     password: '1234'
@@ -67,6 +108,19 @@ export const mockedCompany = {
     companyName: 'Kenzinho'
 }
 
+export const mockedCompany2 = {
+    companyName: 'Kenzinho Produções'
+}
+
+export const mockedCompany3 = {
+    companyName: 'Kezinho Tecnologias'
+}
+
 export const mockedTechnology = {
     name: 'JavaScript'
 }
+
+export const mockedJobUser : IUserJobRequest = {
+    jobId: ''
+}
+

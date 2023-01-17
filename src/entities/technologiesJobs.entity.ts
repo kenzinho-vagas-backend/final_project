@@ -12,7 +12,7 @@ class TechJob {
     @ManyToOne (() => Technology, (technology) => technology.techsJobs)
     technology: Technology
 
-    @ManyToOne (() => Job, (job) => job.techsJobs)
+    @ManyToOne (() => Job, (job) => job.techsJobs, {onDelete: 'SET NULL'})
     job: Job
 }
 

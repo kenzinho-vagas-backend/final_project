@@ -8,65 +8,144 @@ import { IJobRequest, IJobResponse } from '../../interfaces/job.interface'
 import { returnJobSerializer } from '../../schemas/jobs/job.serializer'
 
 
-export const createJobService = async (data: IJobRequest | any): Promise<IJobResponse | any>=> {
+export const createJobService = async (data: IJobRequest | any, userId: string): Promise<IJobResponse | any>=> {
     
     const jobRepository = AppDataSource.getRepository(Job)
     const companyRepository = AppDataSource.getRepository(Company)
+    const techRepository = AppDataSource.getRepository(Technology)
+    const techToJobRepository = AppDataSource.getRepository(TechJob)
 
+    const searchCompany = await companyRepository.findOne({
 
+        where: {id: data.companies},
+        relations: {
+            user: true
+        }
+        
+    })
+
+    if (searchCompany.user.id !== userId) {
+        throw new AppError('This company does not belong', 403)
+    }
+
+  
     const company = companyRepository.findOneBy({ id: data.companies})
-    
+   
     if (!company) {
         throw new AppError('Company not found', 404)
     }
-
+  
     const noTechs = {
         wage: data.wage,
         modality: data.modality,
         jobLevel: data.jobLevel,
         jobUrl: data.jobUrl,
         companies: data.companies,
-    } 
-
-    const newJob = {...noTechs}
-
-    const createNewJob = jobRepository.create(newJob)
-
-    await jobRepository.save(createNewJob)
-
-    /////////////////////////////////////////////////////////////////////////////
-
-
-
-    const techRepository = AppDataSource.getRepository(Technology)
-    const techToJobRepository = AppDataSource.getRepository(TechJob)
-
-    const techArray = data.techs
-    const searchTech = await techRepository.findOneBy({tech: techArray})
-    
-    if(!searchTech){
-        const newTech = techRepository.create({tech: techArray})
-  
-        await techRepository.save(newTech)
-
-        const newTechToJob =  techToJobRepository.create(newTech)
- 
-        const TechToJobWithRelations = {...newTechToJob, technology: newTech, job: createNewJob}
-
-        return await techToJobRepository.save(TechToJobWithRelations)
     }
+  
+    const newJob = {...noTechs}
+  
+    const createNewJob = jobRepository.create(newJob)
+    await jobRepository.save(createNewJob)
+  
+    const validationtech = data.techs.includes(",")
+    const techArray = data.techs
+  
+    if(!validationtech){
+        const searchTech = await techRepository.findOneBy({tech: techArray.trim().toLowerCase()})
+       
+        if(!searchTech){
+            const newTech = techRepository.create({tech: techArray.trim().toLowerCase()})
+            await techRepository.save(newTech)
 
-    const newTechToJob =  techToJobRepository.create(searchTech)
- 
-    const TechToJobWithRelations = {technology: searchTech, job: createNewJob}
-
-    await techToJobRepository.save(TechToJobWithRelations)
+            const newTechToJob = techToJobRepository.create()
+            await techToJobRepository.save(newTechToJob)
+            await techToJobRepository.update(
+                {
+                    id: newTechToJob.id
+                },
+                {
+                    technology: newTech,
+                    job: createNewJob
+                }
+            )
+  
+            const jobsCreated = await jobRepository.findOneBy({id: createNewJob.id})
+          
+            const returnedCreateJob = await returnJobSerializer.validate({...jobsCreated, techs: data.techs}, {
+                stripUnknown: true
+            })
+          
+            return returnedCreateJob
    
-    ///////////////////////////////////////////////////////////////////////////
+        }
 
-    const returnedCreateJob = await returnJobSerializer.validate(createNewJob, {
+        const newTechToJob = techToJobRepository.create()
+        await techToJobRepository.save(newTechToJob)
+        await techToJobRepository.update(
+            {
+                id: newTechToJob.id
+            },
+            {
+                technology: searchTech,
+                job: createNewJob
+            }
+        )
+  
+        const jobsCreated = await jobRepository.findOneBy({id: createNewJob.id})
+          
+        const returnedCreateJob = await returnJobSerializer.validate({...jobsCreated, techs: data.techs}, {
+            stripUnknown: true
+        })
+          
+        return returnedCreateJob
+    } 
+  
+    techArray.split(",").forEach(async (element: string) => {
+        const searchTech = await techRepository.findOneBy({tech: element.trim().toLowerCase()})
+       
+        if(!searchTech){
+            const newTech = techRepository.create({tech: element.trim().toLowerCase()})
+     
+            await techRepository.save(newTech)
+
+            const newTechToJob = techToJobRepository.create()
+        
+            await techToJobRepository.save(newTechToJob)
+
+            return await techToJobRepository.update(
+                {
+                    id: newTechToJob.id
+                },
+                {
+                    technology: newTech,
+                    job: createNewJob
+                }
+            )
+        }
+
+        const newTechToJob = techToJobRepository.create()
+        
+        await techToJobRepository.save(newTechToJob)
+
+        return await techToJobRepository.update(
+            {
+                id: newTechToJob.id
+            },
+            {
+                technology: searchTech,
+                job: createNewJob
+            }
+        )
+        
+    });
+
+    const jobsCreated = await jobRepository.findOneBy({id: createNewJob.id})
+          
+    const returnedCreateJob = await returnJobSerializer.validate({...jobsCreated, techs: data.techs}, {
         stripUnknown: true
     })
-
+          
     return returnedCreateJob
+ 
 }

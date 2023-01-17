@@ -4,10 +4,9 @@ import AppError from '../../errors/AppError'
 import { ICompanyRequest, ICompanyResponse } from '../../interfaces/company.interface'
 import { companyWithIdSerializer } from '../../schemas'
 
-const uptadeCompanyService = async (companyData: ICompanyRequest, companyId: string): Promise<ICompanyResponse> => {
+const uptadeCompanyService = async (companyData: ICompanyRequest, companyId: string, userId: string): Promise<ICompanyResponse> => {
     const companyRepository = AppDataSource.getRepository(Company)
     const company = await companyRepository.findOneBy({ id: companyId})
-
     
     if(!company) {
         throw new AppError('Company not found', 404)
