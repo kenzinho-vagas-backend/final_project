@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import {mockedAdmin, mockedAdminLogin, mockedJob, mockedJob2, mockedJob3, mockedJobUser, mockedUser, mockedUserLogin} from '../../mocks'
+import {mockedAdmin, mockedAdminLogin, mockedCompany, mockedJob, mockedJob2, mockedJob3, mockedJobUser, mockedUser, mockedUser2, mockedUserLogin, mockedUserLogin2} from '../../mocks'
 
 describe('/jobUser', () => {
     let connection: DataSource
@@ -16,13 +16,9 @@ describe('/jobUser', () => {
 
         await request(app).post('/users').send(mockedUser)
         await request(app).post('/users').send(mockedAdmin)
-        const adminLoginResponse = await request(app).post("/session").send(mockedAdminLogin);
-        const userResponse = await request(app).post("/session").send(mockedUserLogin);
-        const jobs = await request(app).post('/jobs').set("Authorization", `Bearer ${adminLoginResponse.body.token}`).send(mockedAdmin)
-        mockedJob2.jobId = jobs.body.id
-        mockedJob3.jobId = jobs.body.id
-        await request(app).post('/properties').set("Authorization", `Bearer ${adminLoginResponse.body.token}`).send(mockedJob2)
-        await request(app).post('/properties').set("Authorization", `Bearer ${adminLoginResponse.body.token}`).send(mockedJob3)
+        await request(app).post("/session").send(mockedAdminLogin);
+        await request(app).post("/session").send(mockedUserLogin);
+       
     })
 
     afterAll(async() => {
@@ -30,33 +26,66 @@ describe('/jobUser', () => {
     })
 
     test('POST /jobUser -  Must be able to save a job',async () => {
-        const jobs = await request(app).get('/jobs')
-        await request(app).post('/users').send(mockedAdmin)
-        const user = await request(app).post('/session').send(mockedUserLogin)
+        await request(app).post('/users').send(mockedUser2)
+        const user = await request(app).post('/session').send(mockedUserLogin2)
+        
         const admin = await request(app).post('/session').send(mockedAdminLogin)
-        mockedJobUser.jobId = jobs.body[0].id
-        const response = await request(app).post('/jobUser').set('Authorization', `Bearer ${user.body.token}`).send(mockedJobUser)
-        await request(app).post('/jobs').set("Authorization", `Bearer ${admin.body.token}`).send(mockedJob2)
-        expect(response.body).toHaveProperty('id')
+
+        const company = await request(app).post('/companies').send(mockedCompany).set('Authorization', `Bearer ${admin.body.token}`)
+        
+        const newJob = {...mockedJob, companies: company.body.id}
+        
+        await request(app).post('/jobs').send(newJob).set('Authorization', `Bearer ${admin.body.token}`)
+
+       
+        const jobs = await request(app).get('/jobs')
+
+        
+        const response = await request(app).post('/jobUser').set('Authorization', `Bearer ${user.body.token}`).send(jobs.body[0].id)
+
         expect(response.status).toBe(201)
+        expect(response.body).toHaveProperty('job')
+        expect(response.body).toHaveProperty('id')
     })
 
     test('POST /jobUser - Should not be able to save a job that already saved', async () => {
-        const jobs = await request(app).get('/jobs')
-        const user = await request(app).post('/session').send(mockedUserLogin)
-        mockedJobUser.jobId = jobs.body[0].id
-        const response = await request(app).post('/jobUser').set('Authorization', `Bearer ${user.body.token}`).send(mockedJobUser)
+        await request(app).post('/users').send(mockedUser2)
+        const user = await request(app).post('/session').send(mockedUserLogin2)
+
+        const savedJob = await request(app).post('/jobUser').set('Authorization', `Bearer ${user.body.token}`)
+        
+        const response = await request(app).post('/jobUser').set('Authorization', `Bearer ${user.body.token}`).send(savedJob.body.id)
 
         expect(response.body).toHaveProperty('message')
         expect(response.status).toBe(409)   
     })
 
+    test('POST /jobUser - Should not be able to saved Job without auth token', async () => {
+
+        const response = await request(app).post('/jobUser')
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty('message')
+    })
+
 
     test('GET /jobUser -  Must be able to list all jobs saved', async () => {
-        await request(app).post('/users').send(mockedUser)
-        const user = await request(app).post('/session').send(mockedUserLogin)
-        const response = await request(app).get('/jobUsers').set('Authorization', `Bearer ${user.body.token}`)
+        await request(app).post('/users').send(mockedUser2)
+        const user = await request(app).post('/session').send(mockedUserLogin2)
 
+          
+       const response = await request(app).get('/jobUser').set('Authorization', `Bearer ${user.body.token}`)
+
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveLength(1)
+
+    })
+
+    test('GET /jobUser - Should not be able to list all jobs saved without auth token', async () => {
+        const response = await request(app).post('/jobUser')
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty('message')
     })
 
 

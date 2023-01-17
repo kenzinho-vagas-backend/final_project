@@ -11,6 +11,17 @@ export const mockedJob = {
 
 }
 
+export const mockedJobResponse = {
+    id: '',
+    wage: '5000',
+    modality: 'Remoto',
+    jobLevel: 'Junior',
+    jobUrl: 'http://job.com.br',
+    companies: '',
+    techs: "JavaScript"
+
+}
+
 
 export const mockedJob2 = {
     wage: '7000',
@@ -90,6 +101,17 @@ export const mockedUser: IUserRequest = {
     jobLevel: 'Junior'
 }
 
+export const mockedUser2: IUserRequest = {
+    name: 'Ana',
+    email: 'ana@mail.com',
+    password: '1234',
+    isAdm: false,
+    linkedin: 'http://linkedin.com/in/ana',
+    bio: 'Devinho',
+    specialty: 'Front end',
+    jobLevel: 'Junior'
+}
+
 export const mockedAdminLogin = {
     email: 'admin@mail.com',
     password: 'admin'
@@ -102,6 +124,11 @@ export const mockedAdminLogin2 = {
 
 export const mockedUserLogin = {
     email: 'jorge@mail.com',
+    password: '1234'
+}
+
+export const mockedUserLogin2 = {
+    email: 'ana@mail.com',
     password: '1234'
 }
 
