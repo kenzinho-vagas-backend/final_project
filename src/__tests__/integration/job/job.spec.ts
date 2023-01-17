@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch} from '../../mocks'
+import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdminLogin2, mockedAdmin2} from '../../mocks'
 
 describe('/jobs', () => {
     let connection: DataSource
@@ -101,7 +101,26 @@ describe('/jobs', () => {
         expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('message')
     })
+
+    test('PATCH /jobs - An admin should not be allowed to update a company that does not belong to him', async () =>{
+        await request(app).post('/users').send(mockedAdmin2)
+        const admin2 = await request(app).post('/session').send(mockedAdminLogin2)
+        const job = await request(app).get('/jobs')
+        const response = await request(app).patch(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${admin2.body.token}`)
+
+        expect(response.status).toBe(403)
+        expect(response.body).toHaveProperty('message')
+    })
+
+    test('PATCH /jobs - Should not be able to update a company with invalid id', async () => {
+        const invalId = 'Hjhd-sjfsjkhf66-hjqdh0'
+        const admingLoginResponse = await request(app).post('/session').send(mockedAdminLogin2)
+        
+        const response = await request(app).patch(`/companies/${invalId}`).set('Authorization', `Bearer ${admingLoginResponse.body.token}`).send(mockedJobPatch)
     
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
+    })
 
     test('GET /jobs -  Must be able to list all jobs', async () => {
         const response = await request(app).get('/jobs')
