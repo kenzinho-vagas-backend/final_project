@@ -88,6 +88,14 @@ describe('/jobUser', () => {
         expect(response.body).toHaveProperty('message')
     })
 
+    test('DELETE /jobUser - Should not be able to delete a saved job with an invalid id', async() => {
+
+    })
+
+    test('DELETE /jobUser - Should not be able to delete a saved job without auth token', async() => {
+        
+    })
+
 
     test('DELETE /jobUser -  should be able to delete a job saved.',async () => { 
         const user = await request(app).post('/session').send(mockedUserLogin)
