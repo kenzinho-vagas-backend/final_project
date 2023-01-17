@@ -180,7 +180,6 @@ describe('/jobs', () => {
         const jobs = await request(app).get('/jobs')
         const job = await request(app).post('/jobUser').set('Authorization', `Bearer ${user.body.token}`).send(jobs.body[0].id)
 
-
         const response = await request(app).get(`/jobs/${job}/user`)
         
         expect(response.body).toHaveProperty('message')
@@ -199,10 +198,14 @@ describe('/jobs', () => {
         expect(response.body).toHaveProperty('message')
     })
 
-    test('GET /jobs/id/user -  Should not be able to list all users from job with invalid id', async () => {
-    
-        // expect(response.status).toBe(403)
-        // expect(response.body.job).toHaveProperty('message')
+    test('GET /jobs/id/user - Must not be able to list all work users outside of your company', async () => {
+        const admin2 = await request(app).post('/session').send(mockedAdminLogin2)
+        const listCompany = await request(app).get('/companies')
+        const listJob = await request(app).get(`/jobs/companies/${listCompany.body[0].id}`)
+        const response = await request(app).get(`/jobs/${listJob.body.job[0].id}/user`).set('Authorization', `Bearer ${admin2.body.token}`)
+
+        expect(response.status).toBe(403)
+        expect(response.body).toHaveProperty('message')
     })
 
 
