@@ -101,6 +101,12 @@ describe('/jobs', () => {
     
     })
 
+    test('GET /jobs/technologies/:id - should be able to list jobs by technology', async () => {
+        const response = await request(app).get(`/jobs/companies/${mockedJob.companies}`)
+        expect(response.body).toHaveLength(1)
+        expect(response.status).toBe(200)
+    })
+
     test('DELETE /jobs -  should not to be able to delete a job without admin permission',async () => { 
         const admin = await request(app).post('/login').send(mockedUserLogin)
         const job = await request(app).get('/jobs')
