@@ -20,15 +20,6 @@ export const getCandidatesJobService = async (id: string, userId: string) => {
         }
     })
 
-    // const searchUser = await userRepository.findOne({
-    //     where: {
-    //         id: userId
-    //     },
-    //     relations: {
-    //         companies: true
-    //     }
-    // })
-
     const searchcompany = await companiesRepository.findOne({
         where: {
             user: {id: userId}
@@ -38,11 +29,11 @@ export const getCandidatesJobService = async (id: string, userId: string) => {
     if (!job) {
         throw new AppError('Job not found', 404)
     }
-
-   
+    
     if(job.companies.id !== searchcompany.id){
         throw new AppError('This company does not belong', 403)
     }
+   
 
     const candidates = await jobRepository.createQueryBuilder('jobs')
         .innerJoinAndSelect('jobs.userJob', 'userJob')
