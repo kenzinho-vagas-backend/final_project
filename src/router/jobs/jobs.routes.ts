@@ -7,10 +7,11 @@ import { ensuranceIsOwnerCompanyMiddleware, ensuranceUserIsAdmMiddleware, ensure
 import { ensureAuthMiddleware } from '../../middlewares/ensureAuth.middleware'
 import { ensureJobExistsMiddleware } from '../../middlewares/ensureJobExists.middleware'
 import {ensuranceIsOwnerJobMiddleware} from '../../middlewares/ensuranceIsOwnerJob.middleware'
+import { ensureIDCompanyExistsMiddleware } from '../../middlewares/ensureIDCompanyExists.middleware'
 
 const jobRoutes = Router()
 
-jobRoutes.post('',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware,ensurePatchDataIsValidMiddleware(createJobSerializer), createJobController)
+jobRoutes.post('',ensureAuthMiddleware, ensuranceUserIsAdmMiddleware, ensurePatchDataIsValidMiddleware(createJobSerializer), createJobController)
 jobRoutes.get('', getAllJobsController)
 jobRoutes.get('/companies/:id', getCompanyJobsController)
 jobRoutes.get('/technologies/:id',ensureAuthMiddleware ,getTechnologiesJobsController)

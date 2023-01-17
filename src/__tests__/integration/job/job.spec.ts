@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch} from '../../mocks'
+import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdmin2, mockedAdminLogin2} from '../../mocks'
 
 describe('/jobs', () => {
     let connection: DataSource
@@ -37,36 +37,54 @@ describe('/jobs', () => {
         expect(response.body).toHaveProperty('jobLevel')
         expect(response.body).toHaveProperty('jobUrl')
         expect(response.body).toHaveProperty('id')
-        expect(response.body).toHaveProperty('createdAt')   
+        expect(response.body).toHaveProperty('createdAt') 
+        expect(response.body).toHaveProperty('techs')  
     })
 
-    test('POST /jobs -  should not be able to create a job without admin permissions',async () => {
-      
-        const user = await request(app).post('/login').send(mockedUserLogin)
-        const response = await request(app).post('/jobs').set('Authorization', `Bearer ${user.body.token}`).send(mockedJob)
-
-        expect(response.body).toHaveProperty('message')
-        expect(response.status).toBe(401)
-     
-    })
-
+    
     test('POST /jobs -  should not be able to create job without authentication',async () => {
         const response = await request(app).post('/jobs').send(mockedJob)
-
+        
         expect(response.body).toHaveProperty('message')
         expect(response.status).toBe(401)
-     
+        
     })
 
     test('POST /jobs -  should not be able to create job with invalid companyId',async () => { 
-        const admin = await request(app).post('/login').send(mockedAdminLogin)
+        
+        const admin = await request(app).post('/session').send(mockedAdminLogin)
+        
         const response = await request(app).post('/jobs').set('Authorization', `Bearer ${admin.body.token}`).send(mockedJobInvalidCompanyId)
+        
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
+     
+    })
+    
+    test('POST /jobs -  should not be able to create a job without admin permissions',async () => {
+      
+        const user = await request(app).post('/session').send(mockedUserLogin)
+        const response = await request(app).post('/jobs').set('Authorization', `Bearer ${user.body.token}`).send(mockedJob)
 
         expect(response.body).toHaveProperty('message')
-        expect(response.status).toBe(401)
+        expect(response.status).toBe(403)
      
     })
 
+    test('POST /jobs -  An admin should not be allowed to created a job that company does not belong to him',async () => {
+      
+       await request(app).post('/users').send(mockedAdmin2)
+
+        const adminLoginResponse = await request(app).post('/session').send(mockedAdminLogin2)
+
+        const response = await request(app).post('/jobs').set('Authorization', `Bearer ${adminLoginResponse.body.token}`).send(mockedJob)
+
+        expect(response.body).toHaveProperty('message')
+        expect(response.status).toBe(403)
+     
+    })
+
+    
     test('PATCH /jobs -  Must be able to patch a job',async () => {
         const admin = await request(app).post('/session').send(mockedAdminLogin)
         const job = await request(app).get('/jobs')
@@ -100,12 +118,21 @@ describe('/jobs', () => {
         expect(response.body.job).toHaveLength(1)    
     })
 
+
+    test('GET /jobs/companies/id -  Should not be able to list all jobs from a company with invalid id', async () => {
+        
+        const response = await request(app).get(`/jobs/companies/${mockedJobInvalidCompanyId.companies}`)
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
+    })
+
     test('GET /jobs/technologies/:id - should be able to list jobs by technology', async () => {
         const login = await request(app).post("/session").send(mockedUserLogin)
         const listTech = await request(app).get(`/techs`) 
         const response = await request(app).get(`/jobs/technologies/${listTech.body[0].id}`).set('Authorization', `Bearer ${login.body.token}`)
     
         expect(response.status).toBe(200)
+
     })
 
     test('GET /jobs/technologies/:id - should not be able to list without token', async () => {
