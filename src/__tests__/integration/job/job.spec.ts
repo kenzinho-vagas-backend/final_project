@@ -178,13 +178,6 @@ describe('/jobs', () => {
     })
     
     
-    test('DELETE /jobs -  should not to be able to delete a job without auth token',async () => { 
-        const job = await request(app).get('/jobs')
-        const response = await request(app).delete('/jobs').send(job.body[0].id)
-
-        expect(response.status).toBe(401)
-    })
-
     test('GET /jobs/technologies/:id - should not be able to list without token', async () => {
         const listTech = await request(app).get(`/techs`) 
         const response = await request(app).get(`/jobs/technologies/${listTech.body[0].id}`)
@@ -201,12 +194,53 @@ describe('/jobs', () => {
         expect(response.status).toBe(404)
     })
 
-    test('DELETE /jobs -  should not to be able to delete a job without admin permission',async () => { 
-        const admin = await request(app).post('/login').send(mockedUserLogin)
+    test('DELETE /jobs -  should not to be able to delete a job without auth token',async () => { 
         const job = await request(app).get('/jobs')
-        const response = await request(app).delete('/jobs').set('Authorization', `Bearer ${admin.body.token}`).send(job.body[0].id)
+        const company = await request(app).get('/companies')
+
+        const response = await request(app).delete(`/jobs/${job.body[0].id}`).send(company.body[0].id)
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty('message')
+    })
+
+    test('DELETE /jobs -  should not to be able to delete a job without admin permission',async () => { 
+        const user = await request(app).post('/session').send(mockedUserLogin)
+        const job = await request(app).get('/jobs')
+        const company = await request(app).get('/companies')
+
+        const response = await request(app).delete(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${user.body.token}`).send(company.body[0].id)
         
         expect(response.status).toBe(403)
+        expect(response.body).toHaveProperty('message')
+    })
+
+    test('DELETE /jobs - should not be able to delete a job with an invalid id', async() => {
+
+        await request(app).post('/users').send(mockedAdmin)
+        
+        const invalId = 'Hjhd-sjfsjkhf66-hjqdh0'
+        const company = await request(app).get('/companies')
+
+        const adminLoginResponse = await request(app).post('/session').send(mockedAdminLogin)
+
+        const response = await request(app).delete(`/jobs/${invalId}`).set('Authorization', `Bearer ${adminLoginResponse.body.token}`).send(company.body[0].id)
+
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
+    })
+
+    test('DELETE /jobs -  An admin should not to be able to delete a job that does not belong to him',async () => { 
+        
+        const admin = await request(app).post('/session').send(mockedAdminLogin2)
+        
+        const job = await request(app).get('/jobs')
+        const company = await request(app).get('/companies')
+
+        const response = await request(app).delete(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${admin.body.token}`).send(company.body[0].id)
+        
+        expect(response.status).toBe(403)
+        expect(response.body).toHaveProperty('message')
     })
     
     test('DELETE /jobs -  should be able to delete a job',async () => { 
