@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdminLogin2, mockedAdmin2} from '../../mocks'
+import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdminLogin2, mockedAdmin2, mockedUser2, mockedUserLogin2} from '../../mocks'
 
 describe('/jobs', () => {
     let connection: DataSource
@@ -20,6 +20,7 @@ describe('/jobs', () => {
         const companies = await request(app).get('/companies').set('Authorization', `Bearer ${adminToken.body.token}`)
         mockedJob.companies = companies.body[0].id
         await request(app).post('/technologies').send(mockedTechnology)
+        
 
     })
 
@@ -144,9 +145,28 @@ describe('/jobs', () => {
     })
 
     test('GET /jobs/id/user -  Must be able to list all users from a job', async () => {
+
+        await request(app).post('/users').send(mockedUser2)
+        const user = await request(app).post('/session').send(mockedUserLogin2)
         
-        // expect(response.status).toBe(200)
-        // expect(response.body.job).toHaveLength(1)
+        const admin1 = await request(app).post('/session').send(mockedAdminLogin)
+
+        const company = await request(app).post('/companies').send(mockedCompany).set('Authorization', `Bearer ${admin1.body.token}`)
+        
+        const newJob = {...mockedJob, companies: company.body.id}
+        
+        await request(app).post('/jobs').send(newJob).set('Authorization', `Bearer ${admin1.body.token}`)
+
+        const jobs = await request(app).get('/jobs')
+
+        await request(app).post('/jobUser').set('Authorization', `Bearer ${user.body.token}`).send(jobs.body[0].id)
+        
+        
+        const response = await request(app).get(`/jobs/${jobs.body[0].id}/user`).set('Authorization', `Bearer ${admin1.body.token}`)
+
+        
+        expect(response.status).toBe(200)
+        expect(response.body.userJob).toHaveLength(1)
     })
 
     test('GET /jobs/id/user -  Should not be able to list all users from job without auth token', async () => {
