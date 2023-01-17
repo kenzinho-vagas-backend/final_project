@@ -85,7 +85,6 @@ describe('/jobs', () => {
     })
 
     
-
     test('PATCH /jobs -  Must be able to patch a job',async () => {
         const admin = await request(app).post('/session').send(mockedAdminLogin)
         const job = await request(app).get('/jobs')
@@ -114,9 +113,17 @@ describe('/jobs', () => {
 
     test('GET /jobs/companies/id -  Must be able to list all jobs from a company', async () => {
         const response = await request(app).get(`/jobs/companies/${mockedJob.companies}`)
-        console.log(response.body)
+        
         expect(response.status).toBe(200)
         expect(response.body.job).toHaveLength(1)
+    
+    })
+
+    test('GET /jobs/companies/id -  Should not be able to list all jobs from a company with invalid id', async () => {
+        
+        const response = await request(app).get(`/jobs/companies/${mockedJobInvalidCompanyId.companies}`)
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
     
     })
 
