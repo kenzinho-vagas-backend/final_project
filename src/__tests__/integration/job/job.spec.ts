@@ -226,10 +226,8 @@ describe('/jobs', () => {
         const admin2 = await request(app).post('/session').send(mockedAdminLogin2)
         const listJob = await request(app).get('/jobs')
         const newCompany = await request(app).post('/companies').set('Authorization', `Bearer ${admin2.body.token}`).send(mockedCompany4)
-        console.log(newCompany.body)
         const response = await request(app).get(`/jobs/${listJob.body[0].id}/user`).set('Authorization', `Bearer ${admin2.body.token}`)
 
-        console.log(response.body)
         expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('message')
     })
