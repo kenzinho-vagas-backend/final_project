@@ -25,6 +25,10 @@ export const getCandidatesJobService = async (id: string, userId: string) => {
             user: {id: userId}
         }
     })
+
+    if(!searchcompany) {
+        throw new AppError('Company not found', 404)   
+    }
     
     if (!job) {
         throw new AppError('Job not found', 404)

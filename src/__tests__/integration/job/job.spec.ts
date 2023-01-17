@@ -211,8 +211,8 @@ describe('/jobs', () => {
     test('GET /jobs/id/user -  Should not be able to list all users from job with invalid id', async () => {
 
         const admin = await request(app).post('/session').send(mockedAdminLogin)
-
-        const invalidId = 'Hjhd-sjfsjkhf66-hjqdh0'
+        
+        const invalidId = '1'
 
         const response = await request(app).get(`/jobs/${invalidId}/user`).set('Authorization', `Bearer ${admin.body.token}`)
     
