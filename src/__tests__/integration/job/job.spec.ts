@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdminLogin2, mockedAdmin2} from '../../mocks'
+import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdminLogin2, mockedAdmin2, mockedUser2, mockedUserLogin2} from '../../mocks'
 
 describe('/jobs', () => {
     let connection: DataSource
@@ -150,9 +150,21 @@ describe('/jobs', () => {
     })
 
     test('GET /jobs/id/user -  Should not be able to list all users from job without auth token', async () => {
-    
-        // expect(response.status).toBe(401)
-        // expect(response.body.job).toHaveProperty('message')
+        await request(app).post('/users').send(mockedAdmin)
+        await request(app).post('/users').send(mockedUser2)
+        const user = await request(app).post('/session').send(mockedUserLogin2)
+        const admin = await request(app).post('/session').send(mockedAdminLogin)
+        const company = await request(app).post('/companies').send(mockedCompany).set('Authorization', `Bearer ${admin.body.token}`)
+        const newJob = {...mockedJob, companies: company.body.id}
+        await request(app).post('/jobs').send(newJob).set('Authorization', `Bearer ${admin.body.token}`)
+        const jobs = await request(app).get('/jobs')
+        const job = await request(app).post('/jobUser').set('Authorization', `Bearer ${user.body.token}`).send(jobs.body[0].id)
+
+
+        const response = await request(app).get(`/jobs/${job}/user`)
+        
+        expect(response.body).toHaveProperty('message')
+        expect(response.status).toBe(401)
     })
     
     test('GET /jobs/id/user -  hould not be able to list all users from job with invalid id', async () => {
