@@ -2,7 +2,7 @@ import AppDataSource from '../../data-source'
 import { Company } from '../../entities/companies.entity'
 import AppError from '../../errors/AppError'
 
-export const getCompanyJobsService = async (id) => {
+export const getCompanyJobsService = async (id: string) => {
     const companyRepository = AppDataSource.getRepository(Company)
 
     const company = await companyRepository.findOneBy({ id: id })
