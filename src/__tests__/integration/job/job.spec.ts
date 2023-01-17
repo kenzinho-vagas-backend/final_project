@@ -221,9 +221,17 @@ describe('/jobs', () => {
     })
 
     test('GET /jobs/id/user - Must not be able to list all work users outside of your company', async () => {
+        
+       await request(app).post('/session').send(mockedAdminLogin)
         const admin2 = await request(app).post('/session').send(mockedAdminLogin2)
+        
         const listCompany = await request(app).get('/companies')
-        const listJob = await request(app).get(`/jobs/companies/${listCompany.body[0].id}`)
+        const listJob = await request(app).post(`/jobs`).send(mockedJob).set('Authorization', `Bearer ${admin2.body.token}`)
+
+       
+
+        console.log(listJob.body.job[0].id, 'chegou teste')
+        
         const response = await request(app).get(`/jobs/${listJob.body.job[0].id}/user`).set('Authorization', `Bearer ${admin2.body.token}`)
 
         expect(response.status).toBe(403)
