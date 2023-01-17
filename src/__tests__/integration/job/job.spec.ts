@@ -187,10 +187,16 @@ describe('/jobs', () => {
         expect(response.status).toBe(401)
     })
     
-    test('GET /jobs/id/user -  hould not be able to list all users from job with invalid id', async () => {
+    test('GET /jobs/id/user -  Should not be able to list all users from job with invalid id', async () => {
+
+        const admin = await request(app).post('/session').send(mockedAdminLogin)
+
+        const invalidId = 'Hjhd-sjfsjkhf66-hjqdh0'
+
+        const response = await request(app).get(`/jobs/${invalidId}/user`).set('Authorization', `Bearer ${admin.body.token}`)
     
-        // expect(response.status).toBe(404)
-        // expect(response.body.job).toHaveProperty('message')
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty('message')
     })
 
     test('GET /jobs/id/user -  Should not be able to list all users from job with invalid id', async () => {
