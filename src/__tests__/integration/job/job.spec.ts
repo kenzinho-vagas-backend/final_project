@@ -119,12 +119,19 @@ describe('/jobs', () => {
     
     })
 
+
     test('GET /jobs/companies/id -  Should not be able to list all jobs from a company with invalid id', async () => {
         
         const response = await request(app).get(`/jobs/companies/${mockedJobInvalidCompanyId.companies}`)
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty('message')
-    
+    })
+
+    test('GET /jobs/technologies/:id - should be able to list jobs by technology', async () => {
+        const response = await request(app).get(`/jobs/companies/${mockedJob.companies}`)
+        expect(response.body).toHaveLength(1)
+        expect(response.status).toBe(200)
+
     })
 
     test('DELETE /jobs -  should not to be able to delete a job without admin permission',async () => { 
