@@ -113,10 +113,9 @@ describe('/jobs', () => {
 
     test('GET /jobs/companies/id -  Must be able to list all jobs from a company', async () => {
         const response = await request(app).get(`/jobs/companies/${mockedJob.companies}`)
-        
+
         expect(response.status).toBe(200)
-        expect(response.body.job).toHaveLength(1)
-    
+        expect(response.body.job).toHaveLength(1)    
     })
 
 
@@ -128,10 +127,26 @@ describe('/jobs', () => {
     })
 
     test('GET /jobs/technologies/:id - should be able to list jobs by technology', async () => {
-        const response = await request(app).get(`/jobs/companies/${mockedJob.companies}`)
-        expect(response.body).toHaveLength(1)
+        const login = await request(app).post("/session").send(mockedUserLogin)
+        const listTech = await request(app).get(`/techs`) 
+        const response = await request(app).get(`/jobs/technologies/${listTech.body[0].id}`).set('Authorization', `Bearer ${login.body.token}`)
+    
         expect(response.status).toBe(200)
 
+    })
+
+    test('GET /jobs/technologies/:id - should not be able to list without token', async () => {
+        const listTech = await request(app).get(`/techs`) 
+        const response = await request(app).get(`/jobs/technologies/${listTech.body[0].id}`)
+    
+        expect(response.status).toBe(401)
+    })
+
+    test('GET /jobs/technologies/:id - should not be able to list without token', async () => {
+        const listTech = await request(app).get(`/techs`) 
+        const response = await request(app).get(`/jobs/technologies/${listTech.body[0].id}`)
+    
+        expect(response.status).toBe(401)
     })
 
     test('DELETE /jobs -  should not to be able to delete a job without admin permission',async () => { 
