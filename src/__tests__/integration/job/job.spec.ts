@@ -142,7 +142,7 @@ describe('/jobs', () => {
         expect(response.status).toBe(401)
     })
 
-    test('GET /jobs/technologies/:id - should not be able to list without token', async () => {
+    test('GET /jobs/technologies/:id - must not be able to list with a vacancy not found', async () => {
         const login = await request(app).post("/session").send(mockedUserLogin)
         const response = await request(app).get(`/jobs/technologies/1`).set('Authorization', `Bearer ${login.body.token}`)
     
