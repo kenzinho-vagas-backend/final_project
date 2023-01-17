@@ -13,8 +13,6 @@ export const ensuranceUserIsAdmMiddleware = async (req: Request, res: Response, 
         }
     )
 
-    console.log(user.isAdm)
-
     if (!user.isAdm) {
         throw new AppError ('Missing adm permissions', 403)
     }

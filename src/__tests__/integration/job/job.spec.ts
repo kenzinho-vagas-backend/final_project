@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdminLogin2, mockedAdmin2, mockedUser2, mockedUserLogin2, mockedCompany2} from '../../mocks'
+import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdminLogin2, mockedAdmin2, mockedUser2, mockedUserLogin2, mockedCompany2, mockedCompany4} from '../../mocks'
 
 describe('/jobs', () => {
     let connection: DataSource
@@ -224,16 +224,12 @@ describe('/jobs', () => {
         
        await request(app).post('/session').send(mockedAdminLogin)
         const admin2 = await request(app).post('/session').send(mockedAdminLogin2)
-        
-        const listCompany = await request(app).get('/companies')
-        const listJob = await request(app).post(`/jobs`).send(mockedJob).set('Authorization', `Bearer ${admin2.body.token}`)
+        const listJob = await request(app).get('/jobs')
+        const newCompany = await request(app).post('/companies').set('Authorization', `Bearer ${admin2.body.token}`).send(mockedCompany4)
+        console.log(newCompany.body)
+        const response = await request(app).get(`/jobs/${listJob.body[0].id}/user`).set('Authorization', `Bearer ${admin2.body.token}`)
 
-       
-
-        console.log(listJob.body.job[0].id, 'chegou teste')
-        
-        const response = await request(app).get(`/jobs/${listJob.body.job[0].id}/user`).set('Authorization', `Bearer ${admin2.body.token}`)
-
+        console.log(response.body)
         expect(response.status).toBe(403)
         expect(response.body).toHaveProperty('message')
     })

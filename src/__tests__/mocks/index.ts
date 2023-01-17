@@ -144,6 +144,10 @@ export const mockedCompany3 = {
     companyName: 'Kezinho Tecnologias'
 }
 
+export const mockedCompany4 = {
+    companyName: "Empresa do GRP"
+}
+
 export const mockedTechnology = {
     name: 'JavaScript'
 }

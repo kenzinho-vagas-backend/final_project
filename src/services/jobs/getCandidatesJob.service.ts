@@ -11,7 +11,6 @@ export const getCandidatesJobService = async (id: string, userId: string) => {
     const userRepository = AppDataSource.getRepository(User)
     const companiesRepository = AppDataSource.getRepository(Company)
 
-    console.log(id)
 
     const job = await jobRepository.findOne({
         where: {
@@ -33,9 +32,6 @@ export const getCandidatesJobService = async (id: string, userId: string) => {
         throw new AppError('Company not found', 404)   
     }
 
-    console.log(searchcompany, 'chegou aqui')
-    console.log(job, 'chegou aqui')
-    console.log(job.companies.id)
     
     if (!job) {
         throw new AppError('Job not found', 404)
