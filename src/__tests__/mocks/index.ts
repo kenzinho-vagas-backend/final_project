@@ -46,7 +46,8 @@ export const mockedJobInvalidCompanyId = {
     modality: 'Remoto',
     jobLevel: 'Junior',
     jobUrl: 'http://job.com.br',
-    companies: '099ecc23-0aac-49b5-adf3-6a20735c91ae'
+    companies: '099ecc23-0aac-49b5-adf3-6a20735c91ae',
+    techs: 'TypeScript'
 }
 
 export const mockedJobPatch = {

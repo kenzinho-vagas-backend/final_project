@@ -113,6 +113,7 @@ describe('/companies', () => {
         const invalId = 'Hjhd-sjfsjkhf66-hjqdh0'
 
         const admingLoginResponse = await request(app).post('/session').send(mockedAdminLogin2)
+        
         const response = await request(app).patch(`/companies/${invalId}`).set('Authorization', `Bearer ${admingLoginResponse.body.token}`).send(newCompanyName)
         
         expect(response.status).toBe(404)
