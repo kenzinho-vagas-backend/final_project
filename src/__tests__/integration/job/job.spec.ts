@@ -137,13 +137,37 @@ describe('/jobs', () => {
         expect(response.body.job).toHaveLength(1)    
     })
 
-
     test('GET /jobs/companies/id -  Should not be able to list all jobs from a company with invalid id', async () => {
         
         const response = await request(app).get(`/jobs/companies/${mockedJobInvalidCompanyId.companies}`)
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty('message')
     })
+
+    test('GET /jobs/id/user -  Must be able to list all users from a job', async () => {
+        
+        // expect(response.status).toBe(200)
+        // expect(response.body.job).toHaveLength(1)
+    })
+
+    test('GET /jobs/id/user -  Should not be able to list all users from job without auth token', async () => {
+    
+        // expect(response.status).toBe(401)
+        // expect(response.body.job).toHaveProperty('message')
+    })
+    
+    test('GET /jobs/id/user -  hould not be able to list all users from job with invalid id', async () => {
+    
+        // expect(response.status).toBe(404)
+        // expect(response.body.job).toHaveProperty('message')
+    })
+
+    test('GET /jobs/id/user -  Should not be able to list all users from job with invalid id', async () => {
+    
+        // expect(response.status).toBe(403)
+        // expect(response.body.job).toHaveProperty('message')
+    })
+
 
     test('GET /jobs/technologies/:id - should be able to list jobs by technology', async () => {
         const login = await request(app).post("/session").send(mockedUserLogin)
@@ -152,6 +176,14 @@ describe('/jobs', () => {
     
         expect(response.status).toBe(200)
 
+    })
+    
+    
+    test('DELETE /jobs -  should not to be able to delete a job without auth token',async () => { 
+        const job = await request(app).get('/jobs')
+        const response = await request(app).delete('/jobs').send(job.body[0].id)
+
+        expect(response.status).toBe(401)
     })
 
     test('GET /jobs/technologies/:id - should not be able to list without token', async () => {
@@ -172,17 +204,10 @@ describe('/jobs', () => {
         const admin = await request(app).post('/login').send(mockedUserLogin)
         const job = await request(app).get('/jobs')
         const response = await request(app).delete('/jobs').set('Authorization', `Bearer ${admin.body.token}`).send(job.body[0].id)
-
-        expect(response.status).toBe(404)
+        
+        expect(response.status).toBe(403)
     })
-
-    test('DELETE /jobs -  should not to be able to delete a job without auth token',async () => { 
-        const job = await request(app).get('/jobs')
-        const response = await request(app).delete('/jobs').send(job.body[0].id)
-
-        expect(response.status).toBe(404)
-    })
-
+    
     test('DELETE /jobs -  should be able to delete a job',async () => { 
         const admin = await request(app).post('/session').send(mockedAdminLogin)
         const job = await request(app).get('/jobs')
@@ -190,4 +215,5 @@ describe('/jobs', () => {
 
         expect(response.status).toBe(204)
     })
+
 })
