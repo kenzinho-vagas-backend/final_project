@@ -16,18 +16,11 @@ describe('/techs', () => {
         await request(app).post('/users').send(mockedAdmin)
         await request(app).post('/users').send(mockedUser2)
         const user = await request(app).post('/session').send(mockedUserLogin2)
-        
         const admin = await request(app).post('/session').send(mockedAdminLogin)
-
         const company = await request(app).post('/companies').send(mockedCompany).set('Authorization', `Bearer ${admin.body.token}`)
-        
         const newJob = {...mockedJob, companies: company.body.id}
-        
         await request(app).post('/jobs').send(newJob).set('Authorization', `Bearer ${admin.body.token}`)
-
-       
         const jobs = await request(app).get('/jobs')
-
         await request(app).post('/jobUser').set('Authorization', `Bearer ${user.body.token}`).send(jobs.body[0].id)
 
     })
