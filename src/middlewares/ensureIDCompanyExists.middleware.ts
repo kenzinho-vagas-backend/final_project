@@ -12,7 +12,7 @@ export const ensureIDCompanyExistsMiddleware = async (req: Request, res: Respons
     })
 
     if (!foundCompany) {
-        throw new AppError('Company doesnt exists', 404)
+        throw new AppError('Company does not exists', 404)
     }  
     
     res.locals.foundCompany = foundCompany
