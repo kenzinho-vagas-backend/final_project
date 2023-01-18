@@ -15,26 +15,26 @@ export const createJobService = async (data: IJobRequest | any, userId: string):
     const techRepository = AppDataSource.getRepository(Technology)
     const techToJobRepository = AppDataSource.getRepository(TechJob)
 
-    const searchCompany = await companyRepository.findOne({
+    const company = await companyRepository.findOneBy({ id: data.companies})
 
+    
+    if (!company) {
+        throw new AppError('Company not found', 404)
+    }
+    
+    const searchCompany = await companyRepository.findOne({
+        
         where: {id: data.companies},
         relations: {
             user: true
         }
-        
     })
-
+    
     if (searchCompany.user.id !== userId) {
         throw new AppError('This company does not belong', 403)
     }
-
-  
-    const company = companyRepository.findOneBy({ id: data.companies})
-   
-    if (!company) {
-        throw new AppError('Company not found', 404)
-    }
-  
+    
+    
     const noTechs = {
         wage: data.wage,
         modality: data.modality,

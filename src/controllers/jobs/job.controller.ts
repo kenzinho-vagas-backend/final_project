@@ -48,6 +48,7 @@ export const getTechnologiesJobsController = async (req: Request, res: Response)
 export const getCandidatesJobController = async (req: Request, res: Response) => {
     const jobId = req.params.id
     const userId = req.user.id
+    
     const candidates = await getCandidatesJobService(jobId, userId)
 
     return res.status(200).json(candidates)

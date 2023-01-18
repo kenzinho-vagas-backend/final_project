@@ -11,6 +11,17 @@ export const mockedJob = {
 
 }
 
+export const mockedJobResponse = {
+    id: '',
+    wage: '5000',
+    modality: 'Remoto',
+    jobLevel: 'Junior',
+    jobUrl: 'http://job.com.br',
+    companies: '',
+    techs: "JavaScript"
+
+}
+
 
 export const mockedJob2 = {
     wage: '7000',
@@ -46,7 +57,8 @@ export const mockedJobInvalidCompanyId = {
     modality: 'Remoto',
     jobLevel: 'Junior',
     jobUrl: 'http://job.com.br',
-    companies: '099ecc23-0aac-49b5-adf3-6a20735c91ae'
+    companies: '099ecc23-0aac-49b5-adf3-6a20735c91ae',
+    techs: 'TypeScript'
 }
 
 export const mockedJobPatch = {
@@ -89,6 +101,17 @@ export const mockedUser: IUserRequest = {
     jobLevel: 'Junior'
 }
 
+export const mockedUser2: IUserRequest = {
+    name: 'Ana',
+    email: 'ana@mail.com',
+    password: '1234',
+    isAdm: false,
+    linkedin: 'http://linkedin.com/in/ana',
+    bio: 'Devinho',
+    specialty: 'Front end',
+    jobLevel: 'Junior'
+}
+
 export const mockedAdminLogin = {
     email: 'admin@mail.com',
     password: 'admin'
@@ -104,6 +127,11 @@ export const mockedUserLogin = {
     password: '1234'
 }
 
+export const mockedUserLogin2 = {
+    email: 'ana@mail.com',
+    password: '1234'
+}
+
 export const mockedCompany = {
     companyName: 'Kenzinho'
 }
@@ -116,6 +144,10 @@ export const mockedCompany3 = {
     companyName: 'Kezinho Tecnologias'
 }
 
+export const mockedCompany4 = {
+    companyName: "Empresa do GRP"
+}
+
 export const mockedTechnology = {
     name: 'JavaScript'
 }
@@ -124,3 +156,6 @@ export const mockedJobUser : IUserJobRequest = {
     jobId: ''
 }
 
+export const mockedJobUserInvalid = {
+    jobId: '1234'
+}

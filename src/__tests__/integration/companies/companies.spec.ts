@@ -31,6 +31,7 @@ describe('/companies', () => {
     test('POST /companies - Should not be able to create a company that already exists', async () => {
         await request(app).post('/users').send(mockedAdmin)
         const adminLogin = await request(app).post('/session').send(mockedAdminLogin)
+        
         const response = await request(app).post('/companies').set('Authorization', `Bearer ${adminLogin.body.token}`).send(mockedCompany)
         
         expect(response.status).toBe(409)
@@ -113,6 +114,7 @@ describe('/companies', () => {
         const invalId = 'Hjhd-sjfsjkhf66-hjqdh0'
 
         const admingLoginResponse = await request(app).post('/session').send(mockedAdminLogin2)
+        
         const response = await request(app).patch(`/companies/${invalId}`).set('Authorization', `Bearer ${admingLoginResponse.body.token}`).send(newCompanyName)
         
         expect(response.status).toBe(404)

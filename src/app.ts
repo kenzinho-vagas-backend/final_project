@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import 'express-async-errors'
-import express from 'express'
+import express, { Request, Response } from 'express'
 import handleError from './errors/handleError'
 
 import { companiesRoutes } from './router'
@@ -12,6 +12,10 @@ import { techsRoutes } from './router'
 
 const app = express()
 app.use(express.json())
+app.use(express.static('documentation'))
+app.use('./', (req:Request, res: Response) => {
+    res.render('index.html')
+})
 
 app.use('/jobs', jobRoutes)
 app.use('/companies', companiesRoutes)
