@@ -94,7 +94,7 @@ describe('/jobs', () => {
     test('PATCH /jobs -  Must be able to patch a job',async () => {
         const admin = await request(app).post('/session').send(mockedAdminLogin)
         const job = await request(app).get('/jobs')
-        const response = await request(app).patch(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${admin.body.token}`).send(mockedJobPatch)
+        const response = await request(app).patch(`/jobs/${job.body[1].id}`).set('Authorization', `Bearer ${admin.body.token}`).send(mockedJobPatch)
 
         expect(response.body).toHaveProperty('wage')
         expect(response.body).toHaveProperty('modality')
@@ -313,7 +313,6 @@ describe('/jobs', () => {
         const admin = await request(app).post('/session').send(mockedAdminLogin)
         const job = await request(app).get('/jobs')
         const response = await request(app).delete(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${admin.body.token}`)
-        console.log(response.body)
         expect(response.status).toBe(204)
     })
 
