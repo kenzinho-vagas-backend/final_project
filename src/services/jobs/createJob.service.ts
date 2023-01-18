@@ -31,7 +31,7 @@ export const createJobService = async (data: IJobRequest | any, userId: string):
     })
     
     if (searchCompany.user.id !== userId) {
-        throw new AppError('This company does not belong', 403)
+        throw new AppError('This company does not belong to you', 403)
     }
     
     
