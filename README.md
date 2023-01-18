@@ -1,3 +1,7 @@
+# Visão Geral
+
+Essa API foi desenvolvida com base em nosso Projeto Front-End Kenzinho Vagas que foi pensado para criar uma plataforma que unisse empresas e desenvolvedores, com nosso aprendizado no M4 desenvolvemos essa API para integrar nossa aplicação futuramente.
+
 # Documentação da API
 
 Para documentação completa acesse: https://kenzinho-vagas-api.onrender.com/
@@ -40,15 +44,16 @@ Diagrama ER da API definindo bem as relações entre as tabelas do banco de dado
 ![DER](tbles.drawio.png)
 
 
-### 3 - Instalando Dependências
+
+### 3 - Comandos
+
+ - Instalando Dependências
 
 Clone o projeto em sua máquina e instale as dependências com o comando:
 
 ```shell
 yarn install
 ```
-
-### 3.1 - Comandos
 
 - Para rodar a aplicação use o comando:
 
@@ -83,58 +88,50 @@ yarn typeorm migration:run -d src/data-source.ts
 
 ## 6 - Endpoints
 
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-### Índice
-
-- [/users](#1)
+- [/users]
     - [POST   - /users](Criação de usuários)
     - [GET    - /users](Listar usuários)
 	- [GET    - /users/:id](Listar perfil)
-	- [DELETE - /users/:id](Deletar usuário - Apenas admin)
 	- [PATH   - /users/:id](Atualizar perfil)
-- [/jobs](#2)
-	- []
-- [/companies](#3)
-- [/techs](#4)
-- [/jobUser](#5)
-- [/session](#6)
-
+	- [DELETE - /users/:id](Deletar usuário)
+- [/jobs]
+	- [POST   - /jobs](Criação de vagas)
+    - [GET    - /jobs](Listar vagas)
+	- [GET    - /jobs/companies/:id](Listar vagas por companhia)
+	- [GET    - /jobs/technologies/:id](Listar vagas por tecnologia)
+	- [GET    - /jobs/:id/user](Listar usuários de uma vaga)
+	- [PATH   - /jobs/:id](Atualizar vaga)
+	- [DELETE - /jobs/:id](Deletar vaga)
+- [/companies]
+	- [POST   - /companies](Criação de companhia)
+    - [GET    - /companies](Listar companhias)
+	- [PATH   - /companies/:id](Atualizar companhia)
+	- [DELETE - /companies/:id](Deletar companhias)
+- [/techs]
+	- [GET    - /techs](Listar tecnologias)
+- [/jobUser]
+	- [POST   - /jobUser](Salvar vagas)
+    - [GET    - /jobUser](Listar vagas salvas)
+	- [DELETE - /jobUser/:id](Deletar vagas salvas)
+- [/session]
+	- [POST   - /session](Fazer login)
 ---
-
-## 1. **Users**
-[ Voltar para os Endpoints ](#5-endpoints)
+##  **Users**
 
 O objeto User é definido como:
 
-| Campo      | Tipo   | Descrição                                     |
-| -----------|--------|-------------------------------------------------|
-| id         | string | Identificador único do usuário                  |
-| name       | string | O nome do usuário.                              |
-| email      | string | O e-mail do usuário.                            |
-| password   | string | A senha de acesso do usuário                    |
-| isAdm      | boolean| Define se um usuário é Administrador ou não.    |
-| isActive   | boolean| Define se o usuário está ativo ou se foi 		|
-|					  |		deletado com soft delete                    |
-| linkedin   | string | Define o linkedin do usuário.    				|
-| bio	     | string | A bio do usuário                    			|
-| specialty  | string | Define se um usuário Back, Front ou FullStack.  |
-| jobLevel   | string | Define se o usuário é Júnior, Pleno ou Sênior   |
-
-### Endpoints
-
-| Método   | Rota       | Descrição                               |
-|----------|------------|-----------------------------------------|
-| POST     | /users     | Criação de um usuário.                  |
-| GET      | /users     | Lista todos os usuários                 |
-| GET      | /users/:user_id     | Lista um usuário usando seu ID como parâmetro 
-
----
-
-### 1.1. **Criação de Usuário**
-
-[ Voltar para os Endpoints ](#5-endpoints)
-
+| Campo      | Tipo   | Descrição                                     		|
+| -----------|--------|-----------------------------------------------------|
+| id         | string | Identificador único do usuário                  	|
+| name       | string | O nome do usuário.                              	|
+| email      | string | O e-mail do usuário.                            	|
+| password   | string | A senha de acesso do usuário                    	|
+| isAdm      | boolean| Define se um usuário é Administrador ou não.    	|
+| isActive   | boolean| Define se o usuário está ativo ou se foi deletado.	|
+| linkedin   | string | Define o linkedin do usuário.    					|
+| bio	     | string | A bio do usuário                    				|
+| specialty  | string | Define se um usuário Back, Front ou FullStack.  	|
+| jobLevel   | string | Define se o usuário é Júnior, Pleno ou Sênior   	|
 
 ### Possíveis Erros:
 | Status | Descrição 	|
