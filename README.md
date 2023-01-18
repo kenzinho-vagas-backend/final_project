@@ -1,15 +1,17 @@
 # Documentação da API
 
+Para documentação completa acesse: https://kenzinho-vagas-api.onrender.com/
+
 ## Tabela de Conteúdos
 
 - [Visão Geral](#1-visão-geral)
 - [Diagrama ER](#2-diagrama-er)
-- [Início Rápido](#3-início-rápido)
-    - [Instalando Dependências](#31-instalando-dependências)
-    - [Variáveis de Ambiente](#32-variáveis-de-ambiente)
-    - [Migrations](#33-migrations)
-- [Autenticação](#4-autenticação)
-- [Endpoints](#5-endpoints)
+- [Instalando Dependências](#3-instalando-dependências)
+	- [Comandos](#31-instalando-dependências)
+- [Variáveis de Ambiente](#4-variáveis-de-ambiente)
+- [Migrations](#5-migrations)
+- [Autenticação](#6-autenticação)
+- [Endpoints](#7-endpoints)
 
 ---
 
@@ -25,7 +27,7 @@ Visão geral do projeto, um pouco das tecnologias usadas.
 - [Yup](https://www.npmjs.com/package/yup)
 
 A URL base da aplicação:
-http://suaapi.com/v1
+https://kenzinho-vagas-api.onrender.com/
 
 ---
 
@@ -37,13 +39,8 @@ Diagrama ER da API definindo bem as relações entre as tabelas do banco de dado
 
 ![DER](tbles.drawio.png)
 
----
 
-## 3. Início Rápido
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-
-### 3.1. Instalando Dependências
+### 3 - Instalando Dependências
 
 Clone o projeto em sua máquina e instale as dependências com o comando:
 
@@ -51,7 +48,21 @@ Clone o projeto em sua máquina e instale as dependências com o comando:
 yarn install
 ```
 
-### 3.2. Variáveis de Ambiente
+### 3.1 - Comandos
+
+- Para rodar a aplicação use o comando:
+
+```shell
+yarn dev
+```
+
+- Para rodar testes use o comando:
+
+```shell
+yarn test
+```
+
+## 4 - Variáveis de Ambiente
 
 Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.example**:
 ```
