@@ -4,7 +4,7 @@ import request from 'supertest'
 import app from '../../../app'
 import { mockedAdmin, mockedAdminLogin, mockedUser, mockedUserLogin } from '../../mocks'
 
-describe('Testing users', () => {
+describe('/users', () => {
     let connection: DataSource
 
     beforeAll(async () => {

@@ -11,7 +11,7 @@ const deleteJobToUserService = async (JobToUserid: string): Promise<object> => {
     })
 
     if(!searchJobToUser) {
-        throw new AppError('Job has already been saved', 404)
+        throw new AppError('Job has already been delete', 404)
     }
 
     await userJobRepo.delete({id: JobToUserid})

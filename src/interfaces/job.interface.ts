@@ -1,5 +1,3 @@
-import { ITechRequest } from './technology.interface'
-
 export interface IUserJobRequest {
     jobId: string
 }
