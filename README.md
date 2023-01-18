@@ -41,7 +41,7 @@ https://kenzinho-vagas-api.onrender.com/
 
 Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
-![DER](tbles.drawio.png)
+![DER](tbles.png)
 
 
 
