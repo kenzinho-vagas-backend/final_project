@@ -19,6 +19,7 @@ describe('/jobs', () => {
         await request(app).post('/companies').set('Authorization', `Bearer ${adminToken.body.token}`).send(mockedCompany)
         const companies = await request(app).get('/companies').set('Authorization', `Bearer ${adminToken.body.token}`)
         mockedJob.companies = companies.body[0].id
+        await request(app).post('/jobs').set('Authorization', `Bearer ${adminToken.body.token}`).send(mockedJob)
         await request(app).post('/technologies').send(mockedTechnology)
         
 
@@ -147,7 +148,7 @@ describe('/jobs', () => {
 
     test('GET /jobs -  Must be able to list all jobs', async () => {
         const response = await request(app).get('/jobs')
-        expect(response.body).toHaveLength(1)
+        expect(response.body).toHaveLength(2)
         expect(response.status).toBe(200)
     
     })
@@ -156,7 +157,7 @@ describe('/jobs', () => {
         const response = await request(app).get(`/jobs/companies/${mockedJob.companies}`)
 
         expect(response.status).toBe(200)
-        expect(response.body.job).toHaveLength(1)    
+        expect(response.body.job).toHaveLength(2)    
     })
 
     test('GET /jobs/companies/id -  Should not be able to list all jobs from a company with invalid id', async () => {
@@ -312,7 +313,7 @@ describe('/jobs', () => {
         const admin = await request(app).post('/session').send(mockedAdminLogin)
         const job = await request(app).get('/jobs')
         const response = await request(app).delete(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${admin.body.token}`)
-
+        console.log(response.body)
         expect(response.status).toBe(204)
     })
 
