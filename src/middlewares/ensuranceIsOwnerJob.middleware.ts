@@ -25,9 +25,11 @@ export const ensuranceIsOwnerJobMiddleware = async (req: Request, res: Response,
 
     const userLogged = req.user.id
        
-       
+
+
     if(searchJob.companies.id !== searchCompany.id || searchCompany.user.id !== userLogged) {
-        throw new AppError('Missing adm permission', 403)
+
+        throw new AppError('This company does not belong to you', 403)
     }
     
     return next()

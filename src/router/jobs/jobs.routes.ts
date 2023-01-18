@@ -3,11 +3,10 @@ import { createJobSerializer } from '../../schemas/jobs/job.serializer'
 import { updateJobController, getAllJobsController, deleteJobController, getCompanyJobsController, getTechnologiesJobsController, getCandidatesJobController, createJobController } from '../../controllers'
 
 import { Router } from 'express'
-import { ensuranceIsOwnerCompanyMiddleware, ensuranceUserIsAdmMiddleware, ensurePatchDataIsValidMiddleware } from '../../middlewares'
+import { ensuranceUserIsAdmMiddleware, ensurePatchDataIsValidMiddleware } from '../../middlewares'
 import { ensureAuthMiddleware } from '../../middlewares/ensureAuth.middleware'
 import { ensureJobExistsMiddleware } from '../../middlewares/ensureJobExists.middleware'
 import {ensuranceIsOwnerJobMiddleware} from '../../middlewares/ensuranceIsOwnerJob.middleware'
-import { ensureIDCompanyExistsMiddleware } from '../../middlewares/ensureIDCompanyExists.middleware'
 
 const jobRoutes = Router()
 
