@@ -12,10 +12,7 @@ import { techsRoutes } from './router'
 
 const app = express()
 app.use(express.json())
-app.use(express.static('documentation'))
-app.use('./', (req:Request, res: Response) => {
-    res.render('index.html')
-})
+
 
 app.use('/jobs', jobRoutes)
 app.use('/companies', companiesRoutes)
@@ -25,5 +22,9 @@ app.use('/users', usersRoutes)
 app.use('/session', sessionRoutes)
 
 app.use(handleError)
+app.use(express.static('documentation'))
+app.use('./', (req:Request, res: Response) => {
+    res.render('index.html')
+})
 
 export default app
