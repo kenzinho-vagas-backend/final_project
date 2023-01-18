@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm'
 import AppDataSource from '../../../data-source'
 import request from 'supertest'
 import app from '../../../app'
-import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdminLogin2, mockedAdmin2, mockedUser2, mockedUserLogin2, mockedCompany2, mockedCompany4} from '../../mocks'
+import {mockedJob, mockedAdmin, mockedAdminLogin, mockedCompany, mockedUser, mockedUserLogin, mockedJobInvalidCompanyId, mockedTechnology,mockedJobPatch, mockedAdminLogin2, mockedAdmin2, mockedUser2, mockedUserLogin2, mockedCompany4} from '../../mocks'
 
 describe('/jobs', () => {
     let connection: DataSource
@@ -313,7 +313,6 @@ describe('/jobs', () => {
     test('DELETE /jobs -  should be able to delete a job',async () => { 
         const admin = await request(app).post('/session').send(mockedAdminLogin)
         const job = await request(app).get('/jobs')
-        console.log(job.body[0])
         const response = await request(app).delete(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${admin.body.token}`).send({companies: mockedJob.companies})
         expect(response.status).toBe(204)
     })

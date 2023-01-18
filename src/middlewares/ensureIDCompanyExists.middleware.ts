@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { User } from '../entities/users.entity'
 import AppDataSource from '../data-source'
 import AppError from '../errors/AppError'
 import { Company } from '../entities/companies.entity'

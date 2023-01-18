@@ -2,10 +2,8 @@ import AppDataSource from '../../data-source'
 import { Job } from '../../entities/jobs.entity'
 import { User } from '../../entities/users.entity'
 import { UserJob } from '../../entities/usersJobs.entity'
-import { IUserJobRequest, IUserJobResponse } from '../../interfaces/job.interface'
+import { IUserJobResponse } from '../../interfaces/job.interface'
 import AppError from '../../errors/AppError'
-import { returnedSaveJob } from '../../schemas/jobs/job.serializer'
-import { Company } from '../../entities/companies.entity'
 
 const createJobToUserService = async (jobUser: IUserJobResponse | any, userId: string): Promise<IUserJobResponse | any> => {
     
