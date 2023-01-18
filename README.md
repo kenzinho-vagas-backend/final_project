@@ -10,8 +10,7 @@ Para documentação completa acesse: https://kenzinho-vagas-api.onrender.com/
 
 - [Visão Geral](#1-visão-geral)
 - [Diagrama ER](#2-diagrama-er)
-- [Instalando Dependências](#3-instalando-dependências)
-	- [Comandos](#31-instalando-dependências)
+- [Comandos](#3-Comandos)
 - [Variáveis de Ambiente](#4-variáveis-de-ambiente)
 - [Migrations](#5-migrations)
 - [Autenticação](#6-autenticação)
