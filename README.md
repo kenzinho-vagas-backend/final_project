@@ -71,7 +71,7 @@ cp .env.example .env
 
 Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
 
-### 3.3. Migrations
+## 5 - Migrations
 
 Execute as migrations com o comando:
 
@@ -81,29 +81,26 @@ yarn typeorm migration:run -d src/data-source.ts
 
 ---
 
-## 5. Endpoints
+## 6 - Endpoints
 
 [ Voltar para o topo ](#tabela-de-conteúdos)
 
 ### Índice
 
 - [/users](#1)
-    - [POST - /users](#11-criação-de-usuário)
-    - [GET - /users](#12-listando-usuários)
-	- [GET - /users/:user_id](#13-listar-usuário-por-id)
+    - [POST   - /users](Criação de usuários)
+    - [GET    - /users](Listar usuários)
+	- [GET    - /users/:id](Listar perfil)
+	- [DELETE - /users/:id](Deletar usuário - Apenas admin)
+	- [PATH   - /users/:id](Atualizar perfil)
 - [/jobs](#2)
+	- []
 - [/companies](#3)
 - [/techs](#4)
 - [/jobUser](#5)
 - [/session](#6)
 
 ---
-app.use('/jobs', jobRoutes)
-app.use('/companies', companiesRoutes)
-app.use('/techs', techsRoutes)
-app.use('/jobUser', jobUserRoutes)
-app.use('/users', usersRoutes)
-app.use('/session', sessionRoutes)
 
 ## 1. **Users**
 [ Voltar para os Endpoints ](#5-endpoints)
@@ -138,151 +135,15 @@ O objeto User é definido como:
 
 [ Voltar para os Endpoints ](#5-endpoints)
 
-### `/users`
-
-### Exemplo de Request:
-```
-POST /users
-Host: http://suaapi.com/v1
-Authorization: None
-Content-type: application/json
-```
-
-### Corpo da Requisição:
-```json
-{
-	"name": "eDuArDo",
-	"email": "edu@mail.com",
-	"password": "1234",
-	"isAdm": true
-}
-```
-
-### Schema de Validação com Yup:
-```javascript
-name: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => { 
-		return titlelify(originalValue) 
-	}),
-email: yup
-        .string()
-	.email()
-	.required()
-	.transform((value, originalValue) => { 
-		return originalValue.toLowerCase() 
-	}),
-password: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => { 
-		return bcrypt.hashSync(originalValue, 10) 
-	}),
-isAdm: yup
-        .boolean()
-	.required(),
-```
-OBS.: Chaves não presentes no schema serão removidas.
-
-### Exemplo de Response:
-```
-201 Created
-```
-
-```json
-{
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
-}
-```
 
 ### Possíveis Erros:
-| Código do Erro | Descrição |
-|----------------|-----------|
-| 409 Conflict   | Email already registered. |
+| Status | Descrição 	|
+|--------|--------------|
+|   409  | Conflict 	|
+|   401  | Unauthorized |
+|   404  | Not found 	|
+|   403  | Forbidden 	|
 
 ---
 
-### 1.2. **Listando Usuários**
 
-[ Voltar aos Endpoints ](#5-endpoints)
-
-### `/users`
-
-### Exemplo de Request:
-```
-GET /users
-Host: http://suaapi.com/v1
-Authorization: None
-Content-type: application/json
-```
-
-### Corpo da Requisição:
-```json
-Vazio
-```
-
-### Exemplo de Response:
-```
-200 OK
-```
-```json
-[
-	{
-		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-		"name": "Eduardo",
-		"email": "edu@mail.com",
-		"isAdm": true
-	}
-]
-```
-
-### Possíveis Erros:
-Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
-
----
-
-### 1.3. **Listar Usuário por ID**
-
-[ Voltar aos Endpoints ](#5-endpoints)
-
-### `/users/:user_id`
-
-### Exemplo de Request:
-```
-GET /users/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Host: http://suaapi.com/v1
-Authorization: None
-Content-type: application/json
-```
-
-### Parâmetros da Requisição:
-| Parâmetro   | Tipo        | Descrição                             |
-|-------------|-------------|---------------------------------------|
-| user_id     | string      | Identificador único do usuário (User) |
-
-### Corpo da Requisição:
-```json
-Vazio
-```
-
-### Exemplo de Response:
-```
-200 OK
-```
-```json
-{
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
-}
-```
-
-### Possíveis Erros:
-| Código do Erro 	| Descrição 	  |
-|----------------	|-----------	  |
-| 404 Not Found   	| User not found. |
