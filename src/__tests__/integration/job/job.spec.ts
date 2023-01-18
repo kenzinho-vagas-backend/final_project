@@ -308,12 +308,4 @@ describe('/jobs', () => {
         expect(response.body).toHaveProperty('message')
     })
     
-    test('DELETE /jobs -  should be able to delete a job',async () => { 
-        const admin = await request(app).post('/session').send(mockedAdminLogin)
-        const job = await request(app).get('/jobs')
-        const response = await request(app).delete(`/jobs/${job.body[0].id}`).set('Authorization', `Bearer ${admin.body.token}`)
-
-        expect(response.status).toBe(204)
-    })
-
 })

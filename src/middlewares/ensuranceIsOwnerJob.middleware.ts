@@ -25,7 +25,9 @@ export const ensuranceIsOwnerJobMiddleware = async (req: Request, res: Response,
 
     const userLogged = req.user.id
        
-       
+     console.log(searchJob.companies.id, searchCompany.id)
+     console.log(userLogged, searchCompany.user.id)
+
     if(searchJob.companies.id !== searchCompany.id || searchCompany.user.id !== userLogged) {
         throw new AppError('Missing adm permission', 403)
     }
